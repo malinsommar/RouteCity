@@ -6,7 +6,7 @@ public class PathFinder {
 
     }
 
-    public int[] roadsConnectedToNode(int node){
+    public int[] roadsConnectedToNode(int selectedNode){
         int[] test = {1,2,3};
         return test;
     }

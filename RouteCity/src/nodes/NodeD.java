@@ -1,6 +1,6 @@
 package nodes;
 
-public class NodeC extends Nodes{
+public class NodeD extends Nodes{
 
     boolean twoRoads;
     int[] connectedNodes = new int[3];
