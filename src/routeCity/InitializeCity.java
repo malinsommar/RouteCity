@@ -17,7 +17,7 @@ public class InitializeCity {
     Node nodeI = new Node("I");
     Node nodeJ = new Node("J");
 
-    private void manualBuild(){
+    public void manualBuild(){
         addNodesToArray();
 
         addRoad(nodeA,nodeD);
@@ -32,6 +32,15 @@ public class InitializeCity {
         addRoad(nodeE,nodeH);
         addRoad(nodeF,nodeJ);
         addRoad(nodeG,nodeI);
+
+        //kolla om det går en väg mellan X och Y, får tillbaka true/false
+        System.out.println(nodeA.adjacentNodes.containsKey(nodeB)); //ger False
+        System.out.println(nodeA.adjacentNodes.containsKey(nodeD)); //ger True
+
+        //Kolla distansen mellan X och Y, ger null eller int
+        System.out.println(nodeA.adjacentNodes.get(nodeB)); //ger null
+        System.out.println(nodeA.adjacentNodes.get(nodeD));//ger distansen
+        //                 from                     to
     }
 
     //Checks if road already exists, if not add new road
@@ -53,10 +62,8 @@ public class InitializeCity {
 
     //Count roads connected to node
     private void countRoads(Node node){
-        System.out.println("start");
         int roads = 0;
         for (Node allNode : allNodes) {
-            System.out.println(node.adjacentNodes.containsKey(allNode));
             if (node.adjacentNodes.containsKey(allNode)) {
                 roads++;
             }
