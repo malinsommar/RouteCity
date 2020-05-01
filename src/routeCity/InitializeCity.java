@@ -29,7 +29,6 @@ public class InitializeCity {
         System.out.println("__________________________________");
         for (int i = 0; i <allNodes.size() ; i++) {
             if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
-                nodesTrue++;
                 System.out.println(allNodes.get(i).name);
                 System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
             }
@@ -47,6 +46,7 @@ public class InitializeCity {
     void simon(int follow){
         for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
             if (!loopedNodes[follow]){
+                nodesTrue++;
                 loopedNodes[follow] = true;
             simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
             }
