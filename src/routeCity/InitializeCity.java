@@ -18,16 +18,40 @@ public class InitializeCity {
     private Node nodeI = new Node("I");
     private Node nodeJ = new Node("J");
 
+    boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
+    int nodesTrue = 0;
+
     public void testTest(){
 
         addNodesToArray();
         createAllRoads();
 
-      /*  for (int i = 0; i < allNodes.size(); i++) {
-            System.out.println("Node nr: "+(i+1)+" = "+allNodes.get(i).adjacentNodes.size());
+        System.out.println("__________________________________");
+        for (int i = 0; i <allNodes.size() ; i++) {
+            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
+                nodesTrue++;
+                System.out.println(allNodes.get(i).name);
+                System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
+            }
         }
-        soutAllRoads();
-       */
+
+
+
+        /*for (int i = 0; i < allNodes.size(); i++) {
+            System.out.println("Node nr: "+(i+1)+" = "+allNodes.get(i).adjacentNodes.size());
+        }*/
+        //soutAllRoads();
+
+    }
+
+    void simon(int follow){
+        for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
+            if (!loopedNodes[follow]){
+                loopedNodes[follow] = true;
+            simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+            }
+
+        }
     }
 
     //temp
