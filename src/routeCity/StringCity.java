@@ -6,8 +6,10 @@ public class StringCity {
 
     private ArrayList<String> allRoutes = new ArrayList();
     private ArrayList<String> possibleRoutes = new ArrayList();
+    private ArrayList<String> forbiddenList = new ArrayList();
     private ArrayList<String> finalRoutes = new ArrayList<>();
     private String endGoal = "J";
+    private boolean willbreak = false;
 
     StringCity(){
         System.out.println();
@@ -55,10 +57,18 @@ public class StringCity {
 
 
         //find way from A to J
-        for (int i = 0; i < 10; i++) {
-            
-            if ((allRoutes.get(i).contains(String.valueOf(allRoutes.get(forbidden).charAt(0)))) && (allRoutes.get(i).contains(String.valueOf(allRoutes.get(forbidden).charAt(1))))){
-                System.out.println("continued at " + allRoutes.get(i) + " forbidden letter is: " + allRoutes.get(forbidden));
+        for (int i = 0; i < allRoutes.size(); i++) {
+
+
+            for (int j = 0; j < possibleRoutes.size(); j++) {
+                if ((allRoutes.get(i).contains(String.valueOf(possibleRoutes.get(j).charAt(0)))) && (allRoutes.get(i).contains(String.valueOf(possibleRoutes.get(j).charAt(1))))){
+                    willbreak = true;
+                    break;
+                }
+            }
+
+            if (willbreak){
+                willbreak = false;
                 continue;
             }
 
@@ -101,6 +111,7 @@ public class StringCity {
                     distance = currentMeasure;
                 }
                     currentMeasure = 0;
+                System.out.println("------");
             }
         }
         if (distance == 0) System.out.println(" no route found");
