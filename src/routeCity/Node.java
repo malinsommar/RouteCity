@@ -7,10 +7,11 @@ import java.util.Map;
 
 public class Node {
 
-    private String name;
+    public String name;
     private List<Node> shortestPath = new LinkedList<>();
     private Integer distance = Integer.MAX_VALUE;
-    public boolean threeRoads = false;
+    public boolean minRoads = false;
+    public boolean maxRoads = false;
     Map<Node, Integer> adjacentNodes = new HashMap<>();
 
    /* public void addDestination(Node destination, int distance) {

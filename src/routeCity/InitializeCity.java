@@ -5,33 +5,119 @@ import java.util.ArrayList;
 public class InitializeCity {
 
     ArrayList<Node> allNodes = new ArrayList<>();
+    ArrayList<Node> checkAllNodes = new ArrayList<>();
 
-    Node nodeA = new Node("A");
-    Node nodeB = new Node("B");
-    Node nodeC = new Node("C");
-    Node nodeD = new Node("D");
-    Node nodeE = new Node("E");
-    Node nodeF = new Node("F");
-    Node nodeG = new Node("G");
-    Node nodeH = new Node("H");
-    Node nodeI = new Node("I");
-    Node nodeJ = new Node("J");
+    private Node nodeA = new Node("A");
+    private Node nodeB = new Node("B");
+    private Node nodeC = new Node("C");
+    private Node nodeD = new Node("D");
+    private Node nodeE = new Node("E");
+    private Node nodeF = new Node("F");
+    private Node nodeG = new Node("G");
+    private Node nodeH = new Node("H");
+    private Node nodeI = new Node("I");
+    private Node nodeJ = new Node("J");
 
-    private void manualBuild(){
+    boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
+    int nodesTrue = 0;
+
+    public void testTest(){
+
         addNodesToArray();
+        createAllRoads();
 
-        addRoad(nodeA,nodeD);
-        addRoad(nodeA,nodeI);
-        addRoad(nodeB,nodeC);
-        addRoad(nodeB,nodeF);
-        addRoad(nodeB,nodeJ);
-        addRoad(nodeC,nodeI);
-        addRoad(nodeC,nodeH);
-        addRoad(nodeD,nodeF);
-        addRoad(nodeE,nodeG);
-        addRoad(nodeE,nodeH);
-        addRoad(nodeF,nodeJ);
-        addRoad(nodeG,nodeI);
+        System.out.println("__________________________________");
+        for (int i = 0; i <allNodes.size() ; i++) {
+            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
+                System.out.println(allNodes.get(i).name);
+                System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
+            }
+        }
+
+
+
+        /*for (int i = 0; i < allNodes.size(); i++) {
+            System.out.println("Node nr: "+(i+1)+" = "+allNodes.get(i).adjacentNodes.size());
+        }*/
+        //soutAllRoads();
+
+    }
+
+    void simon(int follow){
+        for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
+            if (!loopedNodes[follow]){
+                nodesTrue++;
+                loopedNodes[follow] = true;
+            simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+            }
+
+        }
+    }
+
+    //temp
+    private void soutAllRoads(){
+        for (int i = 0; i <allNodes.size(); i++) {
+            for (int j = 0; j < allNodes.size(); j++) {
+                System.out.println("___________________________");
+                System.out.println("Node "+(i+1)+" to node "+(j+1));
+                System.out.println(allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j)));
+                System.out.println("___________________________");
+            }
+        }
+    }
+
+    private void createAllRoads(){
+        ArrayList<Node> tempArray = new ArrayList<>(allNodes);
+        boolean done = true;
+
+        while(true) {
+            done = true;
+            for (Node allNode : tempArray) {
+                addRoad(allNode, tempArray.get((int)(Math.random() * tempArray.size())));
+            }
+            //Check if node should be removed.
+            for (int i = 0; i < tempArray.size(); i++) {
+                if (tempArray.get(i).maxRoads) {
+                    System.out.println(tempArray.get(i).name + " removed");
+                    tempArray.remove(i);
+                }
+            }
+            //Check if all nodes has at least 2 roads.
+            for (Node allNode : tempArray) {
+                if (!allNode.minRoads) {
+                    done = false;
+                    break;
+                }
+            }
+            if (done){
+                if (checkIfConnected()){
+                    System.out.println("Everything is connected");
+                    break;
+                }else {
+                    System.out.println("Not connected");
+                    System.exit(0);
+                }
+            }
+        }
+    }
+
+    private boolean checkIfConnected(){
+        checkAllNodes.addAll(allNodes);
+
+        for (int i = 0; i <allNodes.size(); i++) {
+            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
+                checkAllNodes.remove(allNodes.get(i));
+                for (int j = 0; j <allNodes.size(); j++) {
+                    if (allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j))){
+                        checkAllNodes.remove(allNodes.get(j));
+                        for (Node allNode : allNodes) {
+                            checkAllNodes.remove(allNode);
+                        }
+                    }
+                }
+            }
+        }
+        return checkAllNodes.isEmpty();
     }
 
     //Checks if road already exists, if not add new road
@@ -39,39 +125,27 @@ public class InitializeCity {
         if (from.adjacentNodes.containsKey(destination)){
             System.out.println("Road already exists");
         }
-        else if (from.threeRoads || destination.threeRoads){
+        else if (from.maxRoads || destination.maxRoads){
             System.out.println("One of the nodes already has 3 connected roads.");
         } else {
-            System.out.println("Road Added");
             from.addDestination(destination);
             destination.addDestination(from);
-
-            countRoads(from);
-            countRoads(destination);
+            System.out.println("Road Added");
+            countRoadsSetStatus(from);
+            countRoadsSetStatus(destination);
         }
     }
 
-    //Count roads connected to node
-    private void countRoads(Node node){
-        System.out.println("start");
-        int roads = 0;
-        for (Node allNode : allNodes) {
-            System.out.println(node.adjacentNodes.containsKey(allNode));
-            if (node.adjacentNodes.containsKey(allNode)) {
-                roads++;
-            }
+    //Counts the connected roads to the node and sets true on maximum/minimum roads if criteria is filled.
+    private void countRoadsSetStatus(Node node){
+        if (node.adjacentNodes.size() > 1){
+            node.minRoads = true;
         }
-        if (roads==3){
-            node.threeRoads = true;
+        if (node.adjacentNodes.size()>2){
+            node.maxRoads = true;
         }
     }
 
-    //Returns a random number that represents a node.
-    private int getRandomNode(){
-        return (int)(Math.random()*10);
-    }
-
-    //Add all nodes to array.
     private void addNodesToArray(){
         allNodes.add(nodeA);
         allNodes.add(nodeB);
