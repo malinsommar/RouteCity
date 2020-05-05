@@ -26,14 +26,14 @@ public class InitializeCity {
         addNodesToArray();
         createAllRoads();
 
-        System.out.println("__________________________________");
+      /*  System.out.println("__________________________________");
         for (int i = 0; i <allNodes.size() ; i++) {
             if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
                 System.out.println(allNodes.get(i).name);
                 System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
             }
         }
-
+*/
 
 
         /*for (int i = 0; i < allNodes.size(); i++) {
@@ -41,17 +41,6 @@ public class InitializeCity {
         }*/
         //soutAllRoads();
 
-    }
-
-    void simon(int follow){
-        for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
-            if (!loopedNodes[follow]){
-                nodesTrue++;
-                loopedNodes[follow] = true;
-            simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
-            }
-
-        }
     }
 
     //temp
@@ -118,6 +107,15 @@ public class InitializeCity {
             }
         }
         return checkAllNodes.isEmpty();
+    }
+    void simon(int follow){
+        for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
+            if (!loopedNodes[follow]){
+                nodesTrue++;
+                loopedNodes[follow] = true;
+                simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+            }
+        }
     }
 
     //Checks if road already exists, if not add new road
