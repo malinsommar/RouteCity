@@ -4,43 +4,31 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
+    //TODO Programmet krashar ibland när jag lade till att det inte kan gå från a-a
+
     ArrayList<Node> allNodes = new ArrayList<>();
     ArrayList<Node> checkAllNodes = new ArrayList<>();
 
-    private Node nodeA = new Node("A");
-    private Node nodeB = new Node("B");
-    private Node nodeC = new Node("C");
-    private Node nodeD = new Node("D");
-    private Node nodeE = new Node("E");
-    private Node nodeF = new Node("F");
-    private Node nodeG = new Node("G");
-    private Node nodeH = new Node("H");
-    private Node nodeI = new Node("I");
-    private Node nodeJ = new Node("J");
+    Node nodeA = new Node("A");
+    Node nodeB = new Node("B");
+    Node nodeC = new Node("C");
+    Node nodeD = new Node("D");
+    Node nodeE = new Node("E");
+    Node nodeF = new Node("F");
+    Node nodeG = new Node("G");
+    Node nodeH = new Node("H");
+    Node nodeI = new Node("I");
+    Node nodeJ = new Node("J");
 
     boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     int nodesTrue = 0;
 
-    public void testTest(){
+    public ArrayList<Node> initializeNodes(){
 
         addNodesToArray();
         createAllRoads();
 
-      /*  System.out.println("__________________________________");
-        for (int i = 0; i <allNodes.size() ; i++) {
-            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
-                System.out.println(allNodes.get(i).name);
-                System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
-            }
-        }
-*/
-
-
-        /*for (int i = 0; i < allNodes.size(); i++) {
-            System.out.println("Node nr: "+(i+1)+" = "+allNodes.get(i).adjacentNodes.size());
-        }*/
-        //soutAllRoads();
-
+        return allNodes;
     }
 
     //temp
@@ -67,7 +55,7 @@ public class InitializeCity {
             //Check if node should be removed.
             for (int i = 0; i < tempArray.size(); i++) {
                 if (tempArray.get(i).maxRoads) {
-                    System.out.println(tempArray.get(i).name + " removed");
+                    //System.out.println(tempArray.get(i).name + " removed");
                     tempArray.remove(i);
                 }
             }
@@ -108,6 +96,7 @@ public class InitializeCity {
         }
         return checkAllNodes.isEmpty();
     }
+
     void simon(int follow){
         for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
             if (!loopedNodes[follow]){
@@ -123,12 +112,15 @@ public class InitializeCity {
         if (from.adjacentNodes.containsKey(destination)){
             System.out.println("Road already exists");
         }
+        else if (from.name.equals(destination.name)){
+            System.out.println("Cant create road between the same node.");
+        }
         else if (from.maxRoads || destination.maxRoads){
             System.out.println("One of the nodes already has 3 connected roads.");
         } else {
-            from.addDestination(destination);
-            destination.addDestination(from);
-            System.out.println("Road Added");
+            int distance = (int)(Math.random()*10)+1;
+            from.addDestination(destination,distance);
+            destination.addDestination(from, distance);
             countRoadsSetStatus(from);
             countRoadsSetStatus(destination);
         }

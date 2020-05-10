@@ -22,8 +22,8 @@ public class Node {
         this.name = name;
     }
 
-    public void addDestination(Node node) {
-        adjacentNodes.put(node,(int)(Math.random()*10)+1);
+    public void addDestination(Node node,int distance) {
+        adjacentNodes.put(node,distance);
     }
 
     // getters and setters
