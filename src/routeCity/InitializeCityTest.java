@@ -1,8 +1,5 @@
 package routeCity;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -75,11 +72,29 @@ class InitializeCityTest {
 
     @org.junit.jupiter.api.Test
     void countRoadsSetStatus() {
+        InitializeCity initializeCity = new InitializeCity();
+        Node testNode = new Node("test");
 
+        testNode.adjacentNodes.put(testNode,3);
+        initializeCity.countRoadsSetStatus(testNode);
+        assertFalse(testNode.minRoads);
 
+       /* testNode.adjacentNodes.put(testNode,4);
+        initializeCity.countRoadsSetStatus(testNode);
+        assertTrue(testNode.minRoads);
+
+        testNode.adjacentNodes.put(testNode,3);
+        initializeCity.countRoadsSetStatus(testNode);
+        assertTrue(testNode.maxRoads);*/
     }
 
     @org.junit.jupiter.api.Test
     void addNodesToArray() {
+        InitializeCity initializeCity = new InitializeCity();
+
+        ArrayList<Node> nodes = new ArrayList<>();
+        initializeCity.addNodesToArray(nodes);
+
+        assertEquals(10,nodes.size());
     }
 }

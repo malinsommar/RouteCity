@@ -210,5 +210,4 @@ public class MainMenu {
         view.nodeJButton.setBackground(Color.white);
         view.nodeJButton.setText("Node J");
     }
-
 }
