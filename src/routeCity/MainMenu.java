@@ -6,16 +6,20 @@ import java.util.ArrayList;
 public class MainMenu {
 
     private View view = new View();
-    private InitializeCity initializeCity = new InitializeCity();
 
     private ArrayList<Node> allNodes = new ArrayList<>();
 
     private boolean gpsPressed = false;
 
-    public void menu(){
-        allNodes.addAll(initializeCity.initializeNodes());
+    public void menu(ArrayList<Node> allNode){
+        allNodes.addAll(allNode);
         view.setUpFrame();
         addActionListeners();
+
+        System.out.println("allnodes size = "+allNodes.size());
+        for (int i = 0; i <allNodes.size() ; i++) {
+            System.out.println(allNodes.get(i).adjacentNodes.size());
+        }
     }
 
     public void addActionListeners(){

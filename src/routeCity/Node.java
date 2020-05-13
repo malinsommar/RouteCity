@@ -14,9 +14,29 @@ public class Node {
     public boolean maxRoads = false;
     Map<Node, Integer> adjacentNodes = new HashMap<>();
 
-   /* public void addDestination(Node destination, int distance) {
-        adjacentNodes.put(destination, distance);
-    }*/
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isMinRoads() {
+        return minRoads;
+    }
+
+    public void setMinRoads(boolean minRoads) {
+        this.minRoads = minRoads;
+    }
+
+    public boolean isMaxRoads() {
+        return maxRoads;
+    }
+
+    public void setMaxRoads(boolean maxRoads) {
+        this.maxRoads = maxRoads;
+    }
 
     public Node(String name) {
         this.name = name;
@@ -25,6 +45,4 @@ public class Node {
     public void addDestination(Node node,int distance) {
         adjacentNodes.put(node,distance);
     }
-
-    // getters and setters
 }
