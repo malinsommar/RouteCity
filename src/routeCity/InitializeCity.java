@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    ArrayList<Node> allNodes = new ArrayList<>();
-    ArrayList<Node> checkAllNodes = new ArrayList<>();
+    //TODO fixa simons checkIfConnected()
+    public MainMenu mainMenu = new MainMenu();
 
-    private Node nodeA = new Node("A");
-    private Node nodeB = new Node("B");
-    private Node nodeC = new Node("C");
-    private Node nodeD = new Node("D");
-    private Node nodeE = new Node("E");
-    private Node nodeF = new Node("F");
-    private Node nodeG = new Node("G");
-    private Node nodeH = new Node("H");
-    private Node nodeI = new Node("I");
-    private Node nodeJ = new Node("J");
+    Node nodeA = new Node("A");
+    Node nodeB = new Node("B");
+    Node nodeC = new Node("C");
+    Node nodeD = new Node("D");
+    Node nodeE = new Node("E");
+    Node nodeF = new Node("F");
+    Node nodeG = new Node("G");
+    Node nodeH = new Node("H");
+    Node nodeI = new Node("I");
+    Node nodeJ = new Node("J");
 
     boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     int nodesTrue = 0;
@@ -81,56 +81,68 @@ public class InitializeCity {
         }
         return true;
     }
-
-    //temp
-    private void soutAllRoads(){
-        for (int i = 0; i <allNodes.size(); i++) {
-            for (int j = 0; j < allNodes.size(); j++) {
-                System.out.println("___________________________");
-                System.out.println("Node "+(i+1)+" to node "+(j+1));
-                System.out.println(allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j)));
-                System.out.println("___________________________");
-            }
-        }
+    void initializeNodes(){
+        ArrayList<Node> allNodes = new ArrayList<>();
+        mainMenu.menu(createAllRoads(addNodesToArray(allNodes)));
     }
 
-    private void createAllRoads(){
-        ArrayList<Node> tempArray = new ArrayList<>(allNodes);
-        boolean done = true;
+    public ArrayList<Node> createAllRoads(ArrayList<Node> allNodes){
+        boolean done;
+        int stage = 0;
 
         while(true) {
             done = true;
-            for (Node allNode : tempArray) {
-                addRoad(allNode, tempArray.get((int)(Math.random() * tempArray.size())));
-            }
-            //Check if node should be removed.
-            for (int i = 0; i < tempArray.size(); i++) {
-                if (tempArray.get(i).maxRoads) {
-                    System.out.println(tempArray.get(i).name + " removed");
-                    tempArray.remove(i);
-                }
-            }
-            //Check if all nodes has at least 2 roads.
-            for (Node allNode : tempArray) {
-                if (!allNode.minRoads) {
+
+            for (Node allNode : allNodes) {
+                if (allNode.adjacentNodes.size() <= stage) {
+                    addRoad(allNode, allNodes.get((int) (Math.random() * allNodes.size())));
                     done = false;
-                    break;
                 }
             }
             if (done){
-                if (checkIfConnected(0)){
-                    System.out.println("Everything is connected");
+               if (stage == 0){
+                   stage++;
+                }else
                     break;
-                }else {
-                    System.out.println("Not connected");
-                    System.exit(0);
-                }
             }
         }
+        if (!checkIfConnected(allNodes)){
+            System.out.println("Not connected");
+            //allNodes.replaceAll((UnaryOperator<Node>) replaceRoad(allNodes));
+        } else
+            System.out.println("Everything is connected");
+        return allNodes;
     }
 
-    /*
-    private boolean checkIfConnected(){
+  /*  //Searches for a node with mor
+    public ArrayList<Node> replaceRoad(ArrayList<Node> allNodes){
+        int roadMax = 0, roadMin = 0;
+
+        while (allNodes.get(roadMax).maxRoads){
+            roadMax++;
+        }
+
+        while (allNodes.get(roadMax).minRoads){
+            roadMin++;
+        }
+
+        for (Node allNode : allNodes) {
+            if (allNode.adjacentNodes.containsKey(allNodes.get(roadMax))) {
+                //Remove roads
+                allNode.adjacentNodes.remove(allNodes.get(roadMax));
+                allNodes.get(roadMax).adjacentNodes.remove(allNode);
+                //Count deleted nodes roads
+                countRoadsSetStatus(allNodes.get(roadMax));
+                countRoadsSetStatus(allNode);
+                //Add new road
+                addRoad(allNodes.get(roadMin),allNodes.get(roadMax));
+            }
+        }
+        return allNodes;
+    }*/
+
+    public boolean checkIfConnected(ArrayList<Node> allNodes){
+        ArrayList<Node> checkAllNodes = new ArrayList<>();
         checkAllNodes.addAll(allNodes);
 
         for (int i = 0; i <allNodes.size(); i++) {
@@ -148,26 +160,67 @@ public class InitializeCity {
         }
         return checkAllNodes.isEmpty();
     }
+    
+
+    /*
+    public boolean checkIfConnected(int follow){
+
+        System.out.println("ait bois lets do dis");
+        nodesTrue++;
+        loopedNodes[follow] = true;
+        System.out.println((char)(follow + 65) + " has " + allNodes.get(follow).adjacentNodes.size() + " adjacent nodes ");
+        for (int i = 0; i <  allNodes.size(); i++) {
+            //if (!loopedNodes[follow]){
+            System.out.println(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+            if (allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) != null && allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) < 10) {
+                if (!loopedNodes[allNodes.get(follow).adjacentNodes.get(allNodes.get(i))]) {
+                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+                }
+            }
+        }
+        if (nodesTrue == 10) {
+            System.out.println("everything working, good job simon");
+            return true;
+        }
+        else{
+            System.out.println(nodesTrue + " nodes are true");
+            System.out.println("how did this happen?");
+            return false;
+        }
+
+        //return isConnected();
+    }
      */
 
     //Checks if road already exists, if not add new road
-    private void addRoad(Node from, Node destination){
+    public boolean addRoad(Node from, Node destination){
         if (from.adjacentNodes.containsKey(destination)){
-            System.out.println("Road already exists");
+            //System.out.println("Road already exists");
+            return false;
+        }
+        else if (from.name.equals(destination.name)){
+           // System.out.println("Cant create road between the same node.");
+            return false;
         }
         else if (from.maxRoads || destination.maxRoads){
-            System.out.println("One of the nodes already has 3 connected roads.");
+           // System.out.println("One of the nodes already has 3 connected roads.");
+            return false;
         } else {
-            from.addDestination(destination);
-            destination.addDestination(from);
-            System.out.println("Road Added");
+            int distance = (int)(Math.random()*10)+1;
+            from.addDestination(destination,distance);
+            destination.addDestination(from, distance);
             countRoadsSetStatus(from);
             countRoadsSetStatus(destination);
+            return true;
         }
     }
 
     //Counts the connected roads to the node and sets true on maximum/minimum roads if criteria is filled.
-    private void countRoadsSetStatus(Node node){
+    public void countRoadsSetStatus(Node node){
+        if (node.adjacentNodes.size() < 2){
+            node.minRoads = false;
+            node.maxRoads = false;
+        }
         if (node.adjacentNodes.size() > 1){
             node.minRoads = true;
         }
@@ -176,7 +229,7 @@ public class InitializeCity {
         }
     }
 
-    private void addNodesToArray(){
+    public ArrayList<Node> addNodesToArray(ArrayList<Node> allNodes){
         allNodes.add(nodeA);
         allNodes.add(nodeB);
         allNodes.add(nodeC);
@@ -187,5 +240,6 @@ public class InitializeCity {
         allNodes.add(nodeH);
         allNodes.add(nodeI);
         allNodes.add(nodeJ);
+        return allNodes;
     }
 }
