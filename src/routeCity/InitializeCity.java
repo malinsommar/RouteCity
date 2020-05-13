@@ -21,66 +21,6 @@ public class InitializeCity {
     boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     int nodesTrue = 0;
 
-    public void testTest(){
-
-        addNodesToArray();
-        createAllRoads();
-
-        System.out.println("__________________________________");
-        for (int i = 0; i <allNodes.size() ; i++) {
-            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
-                System.out.println(allNodes.get(i).name);
-                System.out.println(nodeA.adjacentNodes.get(allNodes.get(i)));
-            }
-        }
-
-
-
-        /*for (int i = 0; i < allNodes.size(); i++) {
-            System.out.println("Node nr: "+(i+1)+" = "+allNodes.get(i).adjacentNodes.size());
-        }*/
-        //soutAllRoads();
-
-    }
-
-    private boolean checkIfConnected(int follow){
-
-        System.out.println("ait bois lets do dis");
-        nodesTrue++;
-        loopedNodes[follow] = true;
-        System.out.println((char)(follow + 65) + " has " + allNodes.get(follow).adjacentNodes.size() + " adjacent nodes ");
-        for (int i = 0; i <  allNodes.size(); i++) {
-            //if (!loopedNodes[follow]){
-            System.out.println(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
-            if (allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) != null && allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) < 10) {
-                if (!loopedNodes[allNodes.get(follow).adjacentNodes.get(allNodes.get(i))]) {
-                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
-                }
-            }
-        }
-        if (nodesTrue == 10) {
-            System.out.println("everything working, good job simon");
-            return true;
-        }
-        else{
-            System.out.println(nodesTrue + " nodes are true");
-            System.out.println("how did this happen?");
-            return false;
-        }
-
-        //return isConnected();
-    }
-
-    //delete later
-    boolean isConnected(){
-        for (int i = 0; i < loopedNodes.length; i++) {
-            System.out.println(loopedNodes[i]);
-            if (!loopedNodes[i]){
-                return false;
-            }
-        }
-        return true;
-    }
     void initializeNodes(){
         ArrayList<Node> allNodes = new ArrayList<>();
         mainMenu.menu(createAllRoads(addNodesToArray(allNodes)));
@@ -92,7 +32,6 @@ public class InitializeCity {
 
         while(true) {
             done = true;
-
             for (Node allNode : allNodes) {
                 if (allNode.adjacentNodes.size() <= stage) {
                     addRoad(allNode, allNodes.get((int) (Math.random() * allNodes.size())));
@@ -100,13 +39,13 @@ public class InitializeCity {
                 }
             }
             if (done){
-               if (stage == 0){
-                   stage++;
+                if (stage == 0){
+                    stage++;
                 }else
                     break;
             }
         }
-        if (!checkIfConnected(allNodes)){
+        if (!checkIfConnected(0,allNodes)){
             System.out.println("Not connected");
             //allNodes.replaceAll((UnaryOperator<Node>) replaceRoad(allNodes));
         } else
@@ -114,56 +53,7 @@ public class InitializeCity {
         return allNodes;
     }
 
-  /*  //Searches for a node with mor
-    public ArrayList<Node> replaceRoad(ArrayList<Node> allNodes){
-        int roadMax = 0, roadMin = 0;
-
-        while (allNodes.get(roadMax).maxRoads){
-            roadMax++;
-        }
-
-        while (allNodes.get(roadMax).minRoads){
-            roadMin++;
-        }
-
-        for (Node allNode : allNodes) {
-            if (allNode.adjacentNodes.containsKey(allNodes.get(roadMax))) {
-                //Remove roads
-                allNode.adjacentNodes.remove(allNodes.get(roadMax));
-                allNodes.get(roadMax).adjacentNodes.remove(allNode);
-                //Count deleted nodes roads
-                countRoadsSetStatus(allNodes.get(roadMax));
-                countRoadsSetStatus(allNode);
-                //Add new road
-                addRoad(allNodes.get(roadMin),allNodes.get(roadMax));
-            }
-        }
-        return allNodes;
-    }*/
-
-    public boolean checkIfConnected(ArrayList<Node> allNodes){
-        ArrayList<Node> checkAllNodes = new ArrayList<>();
-        checkAllNodes.addAll(allNodes);
-
-        for (int i = 0; i <allNodes.size(); i++) {
-            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
-                checkAllNodes.remove(allNodes.get(i));
-                for (int j = 0; j <allNodes.size(); j++) {
-                    if (allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j))){
-                        checkAllNodes.remove(allNodes.get(j));
-                        for (Node allNode : allNodes) {
-                            checkAllNodes.remove(allNode);
-                        }
-                    }
-                }
-            }
-        }
-        return checkAllNodes.isEmpty();
-    }
-    
-
-    /*
-    public boolean checkIfConnected(int follow){
+    public boolean checkIfConnected(int follow, ArrayList<Node> allNodes){
 
         System.out.println("ait bois lets do dis");
         nodesTrue++;
@@ -174,7 +64,7 @@ public class InitializeCity {
             System.out.println(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
             if (allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) != null && allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) < 10) {
                 if (!loopedNodes[allNodes.get(follow).adjacentNodes.get(allNodes.get(i))]) {
-                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)),allNodes);
                 }
             }
         }
@@ -190,7 +80,6 @@ public class InitializeCity {
 
         //return isConnected();
     }
-     */
 
     //Checks if road already exists, if not add new road
     public boolean addRoad(Node from, Node destination){
@@ -199,11 +88,11 @@ public class InitializeCity {
             return false;
         }
         else if (from.name.equals(destination.name)){
-           // System.out.println("Cant create road between the same node.");
+            // System.out.println("Cant create road between the same node.");
             return false;
         }
         else if (from.maxRoads || destination.maxRoads){
-           // System.out.println("One of the nodes already has 3 connected roads.");
+            // System.out.println("One of the nodes already has 3 connected roads.");
             return false;
         } else {
             int distance = (int)(Math.random()*10)+1;
@@ -243,3 +132,52 @@ public class InitializeCity {
         return allNodes;
     }
 }
+
+
+
+  /*  //Searches for a node with mor
+    public ArrayList<Node> replaceRoad(ArrayList<Node> allNodes){
+        int roadMax = 0, roadMin = 0;
+
+        while (allNodes.get(roadMax).maxRoads){
+            roadMax++;
+        }
+
+        while (allNodes.get(roadMax).minRoads){
+            roadMin++;
+        }
+
+        for (Node allNode : allNodes) {
+            if (allNode.adjacentNodes.containsKey(allNodes.get(roadMax))) {
+                //Remove roads
+                allNode.adjacentNodes.remove(allNodes.get(roadMax));
+                allNodes.get(roadMax).adjacentNodes.remove(allNode);
+                //Count deleted nodes roads
+                countRoadsSetStatus(allNodes.get(roadMax));
+                countRoadsSetStatus(allNode);
+                //Add new road
+                addRoad(allNodes.get(roadMin),allNodes.get(roadMax));
+            }
+        }
+        return allNodes;
+    }*/
+
+   /* public boolean checkIfConnected(ArrayList<Node> allNodes){
+        ArrayList<Node> checkAllNodes = new ArrayList<>();
+        checkAllNodes.addAll(allNodes);
+
+        for (int i = 0; i <allNodes.size(); i++) {
+            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
+                checkAllNodes.remove(allNodes.get(i));
+                for (int j = 0; j <allNodes.size(); j++) {
+                    if (allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j))){
+                        checkAllNodes.remove(allNodes.get(j));
+                        for (Node allNode : allNodes) {
+                            checkAllNodes.remove(allNode);
+                        }
+                    }
+                }
+            }
+        }
+        return checkAllNodes.isEmpty();
+    }*/
