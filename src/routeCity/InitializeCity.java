@@ -160,7 +160,7 @@ public class InitializeCity {
         }
         return checkAllNodes.isEmpty();
     }
-    
+
 
     /*
     public boolean checkIfConnected(int follow){
