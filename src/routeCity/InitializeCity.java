@@ -54,31 +54,16 @@ public class InitializeCity {
     }
 
     public boolean checkIfConnected(int follow, ArrayList<Node> allNodes){
-
-        System.out.println("ait bois lets do dis");
         nodesTrue++;
         loopedNodes[follow] = true;
-        System.out.println((char)(follow + 65) + " has " + allNodes.get(follow).adjacentNodes.size() + " adjacent nodes ");
         for (int i = 0; i <  allNodes.size(); i++) {
-            //if (!loopedNodes[follow]){
-            System.out.println(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
-            if (allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) != null && allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) < 10) {
-                if (!loopedNodes[allNodes.get(follow).adjacentNodes.get(allNodes.get(i))]) {
-                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)),allNodes);
+            if (allNodes.get(follow).adjacentNodes.containsKey(allNodes.get(i))) {
+                if (!loopedNodes[i]) {
+                    checkIfConnected(i,allNodes);
                 }
             }
         }
-        if (nodesTrue == 10) {
-            System.out.println("everything working, good job simon");
-            return true;
-        }
-        else{
-            System.out.println(nodesTrue + " nodes are true");
-            System.out.println("how did this happen?");
-            return false;
-        }
-
-        //return isConnected();
+        return nodesTrue == 10;
     }
 
     //Checks if road already exists, if not add new road
