@@ -114,7 +114,7 @@ public class StringCity {
                 System.out.println("------");
             }
         }
-        if (distance == 0) System.out.println(" no route found");
+        if (distance == 1000) System.out.println(" no route found");
         else System.out.println("the shortest path is " + distance);
     }
 }

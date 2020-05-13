@@ -43,15 +43,43 @@ public class InitializeCity {
 
     }
 
-    void simon(int follow){
-        for (int i = 0; i <  allNodes.get(follow).adjacentNodes.size(); i++) {
-            if (!loopedNodes[follow]){
-                nodesTrue++;
-                loopedNodes[follow] = true;
-            simon(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
-            }
+    private boolean checkIfConnected(int follow){
 
+        System.out.println("ait bois lets do dis");
+        nodesTrue++;
+        loopedNodes[follow] = true;
+        System.out.println((char)(follow + 65) + " has " + allNodes.get(follow).adjacentNodes.size() + " adjacent nodes ");
+        for (int i = 0; i <  allNodes.size(); i++) {
+            //if (!loopedNodes[follow]){
+            System.out.println(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+            if (allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) != null && allNodes.get(follow).adjacentNodes.get(allNodes.get(i)) < 10) {
+                if (!loopedNodes[allNodes.get(follow).adjacentNodes.get(allNodes.get(i))]) {
+                    checkIfConnected(allNodes.get(follow).adjacentNodes.get(allNodes.get(i)));
+                }
+            }
         }
+        if (nodesTrue == 10) {
+            System.out.println("everything working, good job simon");
+            return true;
+        }
+        else{
+            System.out.println(nodesTrue + " nodes are true");
+            System.out.println("how did this happen?");
+            return false;
+        }
+
+        //return isConnected();
+    }
+
+    //delete later
+    boolean isConnected(){
+        for (int i = 0; i < loopedNodes.length; i++) {
+            System.out.println(loopedNodes[i]);
+            if (!loopedNodes[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     //temp
@@ -90,7 +118,7 @@ public class InitializeCity {
                 }
             }
             if (done){
-                if (checkIfConnected()){
+                if (checkIfConnected(0)){
                     System.out.println("Everything is connected");
                     break;
                 }else {
@@ -101,6 +129,7 @@ public class InitializeCity {
         }
     }
 
+    /*
     private boolean checkIfConnected(){
         checkAllNodes.addAll(allNodes);
 
@@ -119,6 +148,7 @@ public class InitializeCity {
         }
         return checkAllNodes.isEmpty();
     }
+     */
 
     //Checks if road already exists, if not add new road
     private void addRoad(Node from, Node destination){
