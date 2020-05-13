@@ -51,7 +51,7 @@ class InitializeCityTest {
         allNodes.addAll(initializeCity.addNodesToArray(allNodes));
         initializeCity.createAllRoads(allNodes);
 
-        assertTrue(initializeCity.checkIfConnected(allNodes),"Not connected");
+        assertTrue(initializeCity.checkIfConnected(0,allNodes),"Not connected");
     }
 
     @org.junit.jupiter.api.Test
