@@ -2,6 +2,7 @@ package routeCity;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainMenu {
 
@@ -19,7 +20,6 @@ public class MainMenu {
         allNodes.addAll(allNode);
         view.setUpFrame();
         addActionListeners();
-        new NodeCity(allNodes);
     }
 
     //Add all needed action listeners at the start of the program.
@@ -124,6 +124,12 @@ public class MainMenu {
                 findAdjacentNodes(9);
             }
         });
+
+        view.searchShortestPathButton.addActionListener(e->{
+            gpsPressed = true;
+            resetViewButtons();
+            System.out.println("Chose 2 nodes");
+        });
     }
 
     //Checks which nodes the selected node is connected with.
@@ -194,12 +200,13 @@ public class MainMenu {
         }else {
             destinationNode = node;
             firstNodeSaved = false;
-
+            NodeCity nodeCity = new NodeCity();
+            Node[] test = nodeCity.getShortestPath(allNodes,fromNode,destinationNode);
+            for (int i = 0; i < test.length; i++) {
+                System.out.println(test[i].name);
+            }
         }
-    }
-
-    void printOutShortestPath(){
-        new NodeCity(allNodes);
+        gpsPressed = false;
     }
 
     //Reset view to original look.
