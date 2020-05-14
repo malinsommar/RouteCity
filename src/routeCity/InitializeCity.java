@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    //TODO fixa simons checkIfConnected()
-    public MainMenu mainMenu = new MainMenu();
+    private MainMenu mainMenu = new MainMenu();
 
     Node nodeA = new Node("A");
     Node nodeB = new Node("B");
@@ -18,12 +17,27 @@ public class InitializeCity {
     Node nodeI = new Node("I");
     Node nodeJ = new Node("J");
 
-    boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
-    int nodesTrue = 0;
+    private boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
+    private int nodesTrue = 0;
+    boolean connected;
 
     void initializeNodes(){
         ArrayList<Node> allNodes = new ArrayList<>();
-        mainMenu.menu(createAllRoads(addNodesToArray(allNodes)));
+        while (true) {
+            createAllRoads(addNodesToArray(allNodes));
+            System.out.println(connected);
+            if (connected) {
+                mainMenu.menu(allNodes);
+                break;
+            } else {
+                for (Node allNode : allNodes) {
+                    allNode.adjacentNodes.clear();
+                    allNode.maxRoads = false;
+                    allNode.minRoads = false;
+                }
+                allNodes.clear();
+            }
+        }
     }
 
     public ArrayList<Node> createAllRoads(ArrayList<Node> allNodes){
@@ -47,9 +61,11 @@ public class InitializeCity {
         }
         if (!checkIfConnected(0,allNodes)){
             System.out.println("Not connected");
-            //allNodes.replaceAll((UnaryOperator<Node>) replaceRoad(allNodes));
-        } else
+            connected = false;
+        } else {
             System.out.println("Everything is connected");
+            connected = true;
+        }
         return allNodes;
     }
 

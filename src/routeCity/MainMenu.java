@@ -8,20 +8,18 @@ public class MainMenu {
     private View view = new View();
 
     private ArrayList<Node> allNodes = new ArrayList<>();
-
     private boolean gpsPressed = false;
+
+    Color green = new Color(46, 171, 77);
+    Color orange = new Color(204, 151, 59);
 
     public void menu(ArrayList<Node> allNode){
         allNodes.addAll(allNode);
         view.setUpFrame();
         addActionListeners();
-
-        System.out.println("allnodes size = "+allNodes.size());
-        for (int i = 0; i <allNodes.size() ; i++) {
-            System.out.println(allNodes.get(i).adjacentNodes.size());
-        }
     }
 
+    //Add all needed action listeners at the start of the program.
     public void addActionListeners(){
 
         view.nodeAButton.addActionListener(e->{
@@ -29,7 +27,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeAButton.setBackground(Color.orange);
+                view.nodeAButton.setBackground(orange);
                 findAdjacentNodes(0);
             }
         });
@@ -39,7 +37,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeBButton.setBackground(Color.orange);
+                view.nodeBButton.setBackground(orange);
                 findAdjacentNodes(1);
             }
         });
@@ -49,7 +47,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeCButton.setBackground(Color.orange);
+                view.nodeCButton.setBackground(orange);
                 findAdjacentNodes(2);
             }
         });
@@ -59,7 +57,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeDButton.setBackground(Color.orange);
+                view.nodeDButton.setBackground(orange);
                 findAdjacentNodes(3);
             }
         });
@@ -69,7 +67,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeEButton.setBackground(Color.orange);
+                view.nodeEButton.setBackground(orange);
                 findAdjacentNodes(4);
             }
         });
@@ -79,7 +77,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeFButton.setBackground(Color.orange);
+                view.nodeFButton.setBackground(orange);
                 findAdjacentNodes(5);
             }
         });
@@ -89,7 +87,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeGButton.setBackground(Color.orange);
+                view.nodeGButton.setBackground(orange);
                 findAdjacentNodes(6);
             }
         });
@@ -99,7 +97,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeHButton.setBackground(Color.orange);
+                view.nodeHButton.setBackground(orange);
                 findAdjacentNodes(7);
             }
         });
@@ -109,7 +107,7 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeIButton.setBackground(Color.orange);
+                view.nodeIButton.setBackground(orange);
                 findAdjacentNodes(8);
             }
         });
@@ -119,12 +117,13 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive();
             } else {
-                view.nodeJButton.setBackground(Color.orange);
+                view.nodeJButton.setBackground(orange);
                 findAdjacentNodes(9);
             }
         });
     }
 
+    //Checks which nodes the selected node is connected with.
     private void findAdjacentNodes(int node){
         for (Node allNode : allNodes) {
             if (allNodes.get(node).adjacentNodes.containsKey(allNode)) {
@@ -134,51 +133,53 @@ public class MainMenu {
         }
     }
 
+    //Changes the color and text on the buttons when pressed.
     private void changeButton(String name, int fromNode){
         switch (name) {
             case "A":
-                view.nodeAButton.setBackground(Color.green);
+                view.nodeAButton.setBackground(green);
                 view.nodeAButton.setText("Node A ("+getDistance(fromNode,0)+")");
                 break;
             case "B":
-                view.nodeBButton.setBackground(Color.green);
+                view.nodeBButton.setBackground(green);
                 view.nodeBButton.setText("Node B ("+getDistance(fromNode,1)+")");
                 break;
             case "C":
-                view.nodeCButton.setBackground(Color.green);
+                view.nodeCButton.setBackground(green);
                 view.nodeCButton.setText("Node C ("+getDistance(fromNode,2)+")");
                 break;
             case "D":
-                view.nodeDButton.setBackground(Color.green);
+                view.nodeDButton.setBackground(green);
                 view.nodeDButton.setText("Node D ("+getDistance(fromNode,3)+")");
                 break;
             case "E":
-                view.nodeEButton.setBackground(Color.green);
+                view.nodeEButton.setBackground(green);
                 view.nodeEButton.setText("Node E ("+getDistance(fromNode,4)+")");
                 break;
             case "F":
-                view.nodeFButton.setBackground(Color.green);
+                view.nodeFButton.setBackground(green);
                 view.nodeFButton.setText("Node F ("+getDistance(fromNode,5)+")");
                 break;
             case "G":
-                view.nodeGButton.setBackground(Color.green);
+                view.nodeGButton.setBackground(green);
                 view.nodeGButton.setText("Node G ("+getDistance(fromNode,6)+")");
                 break;
             case "H":
-                view.nodeHButton.setBackground(Color.green);
+                view.nodeHButton.setBackground(green);
                 view.nodeHButton.setText("Node H ("+getDistance(fromNode,7)+")");
                 break;
             case "I":
-                view.nodeIButton.setBackground(Color.green);
+                view.nodeIButton.setBackground(green);
                 view.nodeIButton.setText("Node I ("+getDistance(fromNode,8)+")");
                 break;
             case "J":
-                view.nodeJButton.setBackground(Color.green);
+                view.nodeJButton.setBackground(green);
                 view.nodeJButton.setText("Node J ("+getDistance(fromNode,9)+")");
                 break;
         }
     }
 
+    //Get the distance between two nodes
     int getDistance(int nodeFrom, int nodeTo){
         return allNodes.get(nodeFrom).adjacentNodes.get(allNodes.get(nodeTo));
     }
@@ -188,6 +189,7 @@ public class MainMenu {
         System.out.println("Select two roads");
     }
 
+    //Reset view to original look.
     private void resetViewButtons(){
         view.nodeAButton.setBackground(Color.white);
         view.nodeAButton.setText("Node A");
