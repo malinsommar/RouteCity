@@ -3,7 +3,7 @@ package routeCity;
 import java.util.ArrayList;
 
 public class InitializeCity {
-    
+
     private MainMenu mainMenu = new MainMenu();
 
 

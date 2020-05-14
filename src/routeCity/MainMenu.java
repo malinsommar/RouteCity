@@ -8,7 +8,9 @@ public class MainMenu {
     private View view = new View();
 
     private ArrayList<Node> allNodes = new ArrayList<>();
-    private boolean gpsPressed = false;
+    private boolean gpsPressed = false, firstNodeSaved= false;
+
+    Node fromNode, destinationNode;
 
     Color green = new Color(46, 171, 77);
     Color orange = new Color(204, 151, 59);
@@ -17,6 +19,7 @@ public class MainMenu {
         allNodes.addAll(allNode);
         view.setUpFrame();
         addActionListeners();
+        new NodeCity(allNodes);
     }
 
     //Add all needed action listeners at the start of the program.
@@ -25,7 +28,7 @@ public class MainMenu {
         view.nodeAButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(0));
             } else {
                 view.nodeAButton.setBackground(orange);
                 findAdjacentNodes(0);
@@ -35,7 +38,7 @@ public class MainMenu {
         view.nodeBButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(1));
             } else {
                 view.nodeBButton.setBackground(orange);
                 findAdjacentNodes(1);
@@ -45,7 +48,7 @@ public class MainMenu {
         view.nodeCButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(2));
             } else {
                 view.nodeCButton.setBackground(orange);
                 findAdjacentNodes(2);
@@ -55,7 +58,7 @@ public class MainMenu {
         view.nodeDButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(3));
             } else {
                 view.nodeDButton.setBackground(orange);
                 findAdjacentNodes(3);
@@ -65,7 +68,7 @@ public class MainMenu {
         view.nodeEButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(4));
             } else {
                 view.nodeEButton.setBackground(orange);
                 findAdjacentNodes(4);
@@ -75,7 +78,7 @@ public class MainMenu {
         view.nodeFButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(5));
             } else {
                 view.nodeFButton.setBackground(orange);
                 findAdjacentNodes(5);
@@ -85,7 +88,7 @@ public class MainMenu {
         view.nodeGButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(6));
             } else {
                 view.nodeGButton.setBackground(orange);
                 findAdjacentNodes(6);
@@ -95,7 +98,7 @@ public class MainMenu {
         view.nodeHButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(7));
             } else {
                 view.nodeHButton.setBackground(orange);
                 findAdjacentNodes(7);
@@ -105,7 +108,7 @@ public class MainMenu {
         view.nodeIButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(8));
             } else {
                 view.nodeIButton.setBackground(orange);
                 findAdjacentNodes(8);
@@ -115,7 +118,7 @@ public class MainMenu {
         view.nodeJButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
-                gpsActive();
+                gpsActive(allNodes.get(9));
             } else {
                 view.nodeJButton.setBackground(orange);
                 findAdjacentNodes(9);
@@ -184,9 +187,19 @@ public class MainMenu {
         return allNodes.get(nodeFrom).adjacentNodes.get(allNodes.get(nodeTo));
     }
 
-    private void gpsActive(){
-        resetViewButtons();
-        System.out.println("Select two roads");
+    private void gpsActive(Node node){
+        if (!firstNodeSaved){
+            fromNode = node;
+            firstNodeSaved = true;
+        }else {
+            destinationNode = node;
+            firstNodeSaved = false;
+
+        }
+    }
+
+    void printOutShortestPath(){
+        new NodeCity(allNodes);
     }
 
     //Reset view to original look.
