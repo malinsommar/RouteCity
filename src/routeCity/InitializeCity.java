@@ -146,23 +146,3 @@ public class InitializeCity {
         }
         return allNodes;
     }*/
-
-   /* public boolean checkIfConnected(ArrayList<Node> allNodes){
-        ArrayList<Node> checkAllNodes = new ArrayList<>();
-        checkAllNodes.addAll(allNodes);
-
-        for (int i = 0; i <allNodes.size(); i++) {
-            if (nodeA.adjacentNodes.containsKey(allNodes.get(i))){
-                checkAllNodes.remove(allNodes.get(i));
-                for (int j = 0; j <allNodes.size(); j++) {
-                    if (allNodes.get(i).adjacentNodes.containsKey(allNodes.get(j))){
-                        checkAllNodes.remove(allNodes.get(j));
-                        for (Node allNode : allNodes) {
-                            checkAllNodes.remove(allNode);
-                        }
-                    }
-                }
-            }
-        }
-        return checkAllNodes.isEmpty();
-    }*/
