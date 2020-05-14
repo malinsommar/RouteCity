@@ -4,19 +4,16 @@ import java.util.ArrayList;
 
 public class NodeCity {
 
-    public class StringCity {
+        private ArrayList<Node> possibleRoutes = new ArrayList();
+        private ArrayList<Node> finalRoutes = new ArrayList<>();
 
-        private ArrayList<String> allRoutes = new ArrayList();
-        private ArrayList<String> possibleRoutes = new ArrayList();
-        private ArrayList<String> forbiddenList = new ArrayList();
-        private ArrayList<String> finalRoutes = new ArrayList<>();
-        private String endGoal = "J";
-        private boolean willbreak = false;
+        //int start = din start node
+        int goal = 9;
 
-        StringCity(){
-            System.out.println();
-            GPS("A", 9);
-            shortestPath();
+        NodeCity(ArrayList<Node> allNodes){
+            System.out.println("entering node-city");
+            GPS(0, goal, allNodes);
+            shortestPath(allNodes);
             System.exit(0);
         }
 
@@ -26,60 +23,41 @@ public class NodeCity {
 
         //find path
 
-        void GPS(String letter, int forbidden){
-
+        void GPS(int node, int forbidden, ArrayList<Node> allNodes){
 
             //find way from A to J
-            for (int i = 0; i < allRoutes.size(); i++) {
+            for (int i = 0; i < allNodes.size(); i++) {
 
-
-                for (int j = 0; j < possibleRoutes.size(); j++) {
-                    if ((allRoutes.get(i).contains(String.valueOf(possibleRoutes.get(j).charAt(0)))) && (allRoutes.get(i).contains(String.valueOf(possibleRoutes.get(j).charAt(1))))){
-                        willbreak = true;
-                        break;
-                    }
-                }
-
-                if (willbreak){
-                    willbreak = false;
+                if (i == forbidden){
                     continue;
                 }
 
-                if (allRoutes.get(i).contains(letter)){
-                    possibleRoutes.add(allRoutes.get(i));
+                if (allNodes.get(node).adjacentNodes.containsKey(allNodes.get(i))){
+                    possibleRoutes.add(allNodes.get(node));
 
-                    if (allRoutes.get(i).contains(endGoal)){
-                        System.out.println("full route found at" + allRoutes.get(i));
+                    if (allNodes.get(node).adjacentNodes.containsKey(allNodes.get(goal))){
                         finalRoutes.addAll(possibleRoutes);
                         //System.exit(0);
                     }
                     else{
-                        char letterToSend; //space ascii value = 32
-
-                        //uses the other letter in the string
-                        if (allRoutes.get(i).charAt(0) == letter.charAt(0)) {
-                            letterToSend = allRoutes.get(i).charAt(1);
-                        }
-                        else{
-                            letterToSend = allRoutes.get(i).charAt(0);
-                        }
-                        System.out.println("trying to go by " + allRoutes.get(i));
-                        GPS(String.valueOf(letterToSend), i);
+                        System.out.println("trying to go by " + (char)(i + 65));
+                        GPS(i, node, allNodes);
                     }
                     possibleRoutes.remove(possibleRoutes.size()-1);
                 }
             }
         }
 
-        private void shortestPath(){
+
+        private void shortestPath(ArrayList<Node> allNodes){
             int distance = 1000;
             int currentMeasure = 0;
             System.out.println("finalroute is " + finalRoutes.size());
-            for (int i = 0; i < finalRoutes.size(); i++) {
+            for (int i = 0; i < finalRoutes.size()-1; i++) {
                 System.out.println(finalRoutes.get(i));
-                currentMeasure += finalRoutes.get(i).charAt(2)-48;
+                currentMeasure += finalRoutes.get(i).adjacentNodes.get(finalRoutes.get(i+1));
 
-                if (finalRoutes.get(i).contains(endGoal)){
+                if (finalRoutes.get(i).adjacentNodes.containsKey(goal)){
                     if (currentMeasure < distance) {
                         distance = currentMeasure;
                     }
@@ -91,5 +69,3 @@ public class NodeCity {
             else System.out.println("the shortest path is " + distance);
         }
     }
-
-}

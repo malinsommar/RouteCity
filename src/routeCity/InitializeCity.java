@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    //TODO fixa simons checkIfConnected()
     public MainMenu mainMenu = new MainMenu();
 
     Node nodeA = new Node("A");
@@ -24,6 +23,7 @@ public class InitializeCity {
     void initializeNodes(){
         ArrayList<Node> allNodes = new ArrayList<>();
         mainMenu.menu(createAllRoads(addNodesToArray(allNodes)));
+        new NodeCity(allNodes);
     }
 
     public ArrayList<Node> createAllRoads(ArrayList<Node> allNodes){
