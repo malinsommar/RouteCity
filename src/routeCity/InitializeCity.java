@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    MainMenu mainMenu = new MainMenu();
+    private MainMenu mainMenu = new MainMenu();
 
     private boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     private int nodesTrue = 0;
@@ -13,15 +13,14 @@ public class InitializeCity {
          ArrayList<Node> allNodes = new ArrayList<>();
 
          while (true) {
-
              if (checkIfConnected(0,createAllRoads(addNodesToArray(allNodes)))){
                  System.out.println("Connected");
                  mainMenu.menu(allNodes);
                  break;
              } else {
                  System.out.println("Not connected");
+                 setLoopedNodes();
                  for (Node allNode : allNodes) {
-                     System.out.println("clear");
                      allNode.adjacentNodes.clear();
                      allNode.maxRoads = false;
                      allNode.minRoads = false;
@@ -54,6 +53,7 @@ public class InitializeCity {
     }
 
     public boolean checkIfConnected(int follow, ArrayList<Node> allNodes){
+
         nodesTrue++;
         loopedNodes[follow] = true;
         for (int i = 0; i <  allNodes.size(); i++) {
@@ -127,33 +127,19 @@ public class InitializeCity {
         allNodes.add(nodeJ);
         return allNodes;
     }
+
+    private void setLoopedNodes(){
+        nodesTrue = 0;
+
+        loopedNodes[0] = false;
+        loopedNodes[1] = false;
+        loopedNodes[2] = false;
+        loopedNodes[3] = false;
+        loopedNodes[4] = false;
+        loopedNodes[5] = false;
+        loopedNodes[6] = false;
+        loopedNodes[7] = false;
+        loopedNodes[8] = false;
+        loopedNodes[9] = false;
+    }
 }
-
-
-
-  /*  //Searches for a node with mor
-    public ArrayList<Node> replaceRoad(ArrayList<Node> allNodes){
-        int roadMax = 0, roadMin = 0;
-
-        while (allNodes.get(roadMax).maxRoads){
-            roadMax++;
-        }
-
-        while (allNodes.get(roadMax).minRoads){
-            roadMin++;
-        }
-
-        for (Node allNode : allNodes) {
-            if (allNode.adjacentNodes.containsKey(allNodes.get(roadMax))) {
-                //Remove roads
-                allNode.adjacentNodes.remove(allNodes.get(roadMax));
-                allNodes.get(roadMax).adjacentNodes.remove(allNode);
-                //Count deleted nodes roads
-                countRoadsSetStatus(allNodes.get(roadMax));
-                countRoadsSetStatus(allNode);
-                //Add new road
-                addRoad(allNodes.get(roadMin),allNodes.get(roadMax));
-            }
-        }
-        return allNodes;
-    }*/
