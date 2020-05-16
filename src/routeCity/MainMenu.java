@@ -2,7 +2,6 @@ package routeCity;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainMenu {
 
@@ -200,12 +199,19 @@ public class MainMenu {
             firstNodeSaved = true;
         }else {
             destinationNode = node;
-            firstNodeSaved = false;
+
             NodeCity nodeCity = new NodeCity();
             Node[] test = nodeCity.getShortestPath(allNodes,fromNode,destinationNode);
-            for (int i = 0; i < test.length; i++) {
-                System.out.println(test[i].name);
+            StringBuilder way = new StringBuilder();
+
+            for (Node value : test) {
+                System.out.println(value.name);
+                way.append(value.name).append(" ");
             }
+            System.out.println("Shortest path from "+fromNode.name+" to "+destinationNode.name+":");
+            System.out.println(way);
+            view.shortestPath.setText(String.valueOf(way));
+            view.shortestPath.setVisible(true);
             firstNodeSaved = false;
             gpsPressed = false;
         }

@@ -9,6 +9,7 @@ public class View {
     JPanel panel = new JPanel();
     JLabel pathCity;
     JButton searchShortestPathButton,nodeAButton,nodeBButton,nodeCButton,nodeDButton,nodeEButton,nodeFButton,nodeGButton,nodeHButton,nodeIButton,nodeJButton;
+    JLabel shortestPath = new JLabel("                   ");
 
     public void setUpFrame(){
 
@@ -19,8 +20,13 @@ public class View {
         panel.setLayout(null);
 
         createButtons();
+        shortestPath.setForeground(Color.black);
+        Dimension size = shortestPath.getPreferredSize();
+        shortestPath.setBounds(400, 530, size.width, size.height);
+        //shortestPath.setVisible(false);
 
         frame.add(panel);
+        panel.add(shortestPath);
         panel.add(nodeAButton);
         panel.add(nodeBButton);
         panel.add(nodeCButton);
