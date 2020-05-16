@@ -4,34 +4,34 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    private MainMenu mainMenu = new MainMenu();
+    MainMenu mainMenu = new MainMenu();
 
+    boolean firstDone= false;
 
-    Node nodeA = new Node("A");
-    Node nodeB = new Node("B");
-    Node nodeC = new Node("C");
-    Node nodeD = new Node("D");
-    Node nodeE = new Node("E");
-    Node nodeF = new Node("F");
-    Node nodeG = new Node("G");
-    Node nodeH = new Node("H");
-    Node nodeI = new Node("I");
-    Node nodeJ = new Node("J");
+    private Node nodeA = new Node("A");
+    private Node nodeB = new Node("B");
+    private Node nodeC = new Node("C");
+    private Node nodeD = new Node("D");
+    private Node nodeE = new Node("E");
+    private Node nodeF = new Node("F");
+    private Node nodeG = new Node("G");
+    private Node nodeH = new Node("H");
+    private Node nodeI = new Node("I");
+    private Node nodeJ = new Node("J");
 
     private boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     private int nodesTrue = 0;
-    boolean connected;
 
-    void initializeNodes(){
-        ArrayList<Node> allNodes = new ArrayList<>();
+     void initializeNodes(){
+         ArrayList<Node> allNodes = new ArrayList<>();
 
-        while (true) {
-            createAllRoads(addNodesToArray(allNodes));
-            System.out.println(connected);
-            if (connected) {
+         while (true) {
+            if (checkIfConnected(0,createAllRoads(addNodesToArray(allNodes)))) {
+                System.out.println("Connected");
                 mainMenu.menu(allNodes);
                 break;
             } else {
+                System.out.println("Not connected");
                 for (Node allNode : allNodes) {
                     allNode.adjacentNodes.clear();
                     allNode.maxRoads = false;
@@ -60,13 +60,6 @@ public class InitializeCity {
                 }else
                     break;
             }
-        }
-        if (!checkIfConnected(0,allNodes)){
-            System.out.println("Not connected");
-            connected = false;
-        } else {
-            System.out.println("Everything is connected");
-            connected = true;
         }
         return allNodes;
     }

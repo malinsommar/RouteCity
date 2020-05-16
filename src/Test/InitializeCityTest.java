@@ -1,7 +1,8 @@
-package routeCity;
+package Test;
 
+import routeCity.InitializeCity;
+import routeCity.Node;
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class InitializeCityTest {

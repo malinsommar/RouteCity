@@ -1,9 +1,6 @@
 package routeCity;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class NodeCity {
 
@@ -47,7 +44,6 @@ public class NodeCity {
             }
             return foundRoutes;
         }
-
 
         private Node[] shortestPath(ArrayList<Node> allNodes,ArrayList<Node[]> foundRoutes, Node goal){
 
