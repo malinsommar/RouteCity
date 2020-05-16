@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class InitializeCity {
 
-    private MainMenu mainMenu = new MainMenu();
+    private GuiController guiController = new GuiController();
 
     private boolean[] loopedNodes = {false,false,false,false,false,false,false,false,false,false};
     private int nodesTrue = 0;
@@ -14,11 +14,9 @@ public class InitializeCity {
 
          while (true) {
              if (checkIfConnected(0,createAllRoads(addNodesToArray(allNodes)))){
-                 System.out.println("Connected");
-                 mainMenu.menu(allNodes);
+                 guiController.menu(allNodes);
                  break;
              } else {
-                 System.out.println("Not connected");
                  setLoopedNodes();
                  for (Node allNode : allNodes) {
                      allNode.adjacentNodes.clear();
