@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class NodeCity {
 
-        Node[] getShortestPath(ArrayList<Node> allNodes,Node start, Node goal){
+        public Node[] getShortestPath(ArrayList<Node> allNodes,Node start, Node goal){
             ArrayList<Node> possibleRoutes = new ArrayList();
             ArrayList<Node[]> foundRoutes = new ArrayList<>();
 
