@@ -8,10 +8,10 @@ public class NodeCity {
             ArrayList<Node> possibleRoutes = new ArrayList();
             ArrayList<Node[]> foundRoutes = new ArrayList<>();
 
-            return shortestPath(allNodes,GPS(0,allNodes,foundRoutes,possibleRoutes, goal),goal);
+            return shortestPath(allNodes,GPS(start,allNodes,foundRoutes,possibleRoutes, goal),goal);
         }
 
-        private ArrayList<Node[]> GPS(int node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
+        private ArrayList<Node[]> GPS(Node node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
 
             boolean willBreak = false;
 
@@ -28,16 +28,16 @@ public class NodeCity {
                     willBreak = false;
                     continue;
                 }
-                if (allNodes.get(node).adjacentNodes.containsKey(allNodes.get(i))){
-                    possibleRoutes.add(allNodes.get(node));
-                    if (allNodes.get(node).adjacentNodes.containsKey(goal)){
+                if (node.adjacentNodes.containsKey(allNodes.get(i))){
+                    possibleRoutes.add(node);
+                    if (node.adjacentNodes.containsKey(goal)){
                         foundRoutes.add(new Node[possibleRoutes.size()]);
                         for (int j = 0; j < possibleRoutes.size(); j++) {
                             foundRoutes.get(foundRoutes.size()-1)[j] = possibleRoutes.get(j);
                         }
                     }
                     else{
-                        GPS(i, allNodes,foundRoutes,possibleRoutes, goal);
+                        GPS(allNodes.get(i), allNodes,foundRoutes,possibleRoutes, goal);
                     }
                     possibleRoutes.remove(possibleRoutes.size()-1);
                 }

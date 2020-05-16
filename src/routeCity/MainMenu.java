@@ -29,9 +29,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(0),allNodes);
             } else {
-                view.nodeAButton.setBackground(orange);
                 findAdjacentNodes(0,allNodes);
             }
+            view.nodeAButton.setBackground(orange);
         });
 
         view.nodeBButton.addActionListener(e->{
@@ -39,9 +39,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(1),allNodes);
             } else {
-                view.nodeBButton.setBackground(orange);
                 findAdjacentNodes(1,allNodes);
             }
+            view.nodeBButton.setBackground(orange);
         });
 
         view.nodeCButton.addActionListener(e->{
@@ -49,9 +49,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(2),allNodes);
             } else {
-                view.nodeCButton.setBackground(orange);
                 findAdjacentNodes(2,allNodes);
             }
+            view.nodeCButton.setBackground(orange);
         });
 
         view.nodeDButton.addActionListener(e->{
@@ -59,9 +59,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(3),allNodes);
             } else {
-                view.nodeDButton.setBackground(orange);
                 findAdjacentNodes(3,allNodes);
             }
+            view.nodeDButton.setBackground(orange);
         });
 
         view.nodeEButton.addActionListener(e->{
@@ -69,9 +69,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(4),allNodes);
             } else {
-                view.nodeEButton.setBackground(orange);
                 findAdjacentNodes(4,allNodes);
             }
+            view.nodeEButton.setBackground(orange);
         });
 
         view.nodeFButton.addActionListener(e->{
@@ -79,9 +79,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(5),allNodes);
             } else {
-                view.nodeFButton.setBackground(orange);
                 findAdjacentNodes(5,allNodes);
             }
+            view.nodeFButton.setBackground(orange);
         });
 
         view.nodeGButton.addActionListener(e->{
@@ -89,9 +89,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(6),allNodes);
             } else {
-                view.nodeGButton.setBackground(orange);
                 findAdjacentNodes(6,allNodes);
             }
+            view.nodeGButton.setBackground(orange);
         });
 
         view.nodeHButton.addActionListener(e->{
@@ -99,9 +99,9 @@ public class MainMenu {
             if (gpsPressed){
                 gpsActive(allNodes.get(7),allNodes);
             } else {
-                view.nodeHButton.setBackground(orange);
                 findAdjacentNodes(7,allNodes);
             }
+            view.nodeHButton.setBackground(orange);
         });
 
         view.nodeIButton.addActionListener(e->{
@@ -112,6 +112,7 @@ public class MainMenu {
                 view.nodeIButton.setBackground(orange);
                 findAdjacentNodes(8,allNodes);
             }
+            view.nodeIButton.setBackground(orange);
         });
 
         view.nodeJButton.addActionListener(e->{
@@ -122,6 +123,7 @@ public class MainMenu {
                 view.nodeJButton.setBackground(orange);
                 findAdjacentNodes(9,allNodes);
             }
+            view.nodeJButton.setBackground(orange);
         });
 
         view.searchShortestPathButton.addActionListener(e->{
@@ -205,8 +207,8 @@ public class MainMenu {
                 System.out.println(test[i].name);
             }
             firstNodeSaved = false;
+            gpsPressed = false;
         }
-        gpsPressed = false;
     }
 
     //Reset view to original look.
