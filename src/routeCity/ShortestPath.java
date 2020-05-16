@@ -2,7 +2,7 @@ package routeCity;
 
 import java.util.ArrayList;
 
-public class NodeCity {
+public class ShortestPath {
 
         public Node[] getShortestPath(ArrayList<Node> allNodes,Node start, Node goal){
             ArrayList<Node> possibleRoutes = new ArrayList();

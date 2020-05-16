@@ -1,21 +1,20 @@
 package Test;
 
 import org.junit.jupiter.api.Test;
-import routeCity.InitializeCity;
 import routeCity.Node;
-import routeCity.NodeCity;
+import routeCity.ShortestPath;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NodeCityTest {
+class ShortestPathTest {
 
     @Test
     void getShortestPath() {
-            NodeCity nodecity = new NodeCity();
+            ShortestPath shortestPath = new ShortestPath();
             ArrayList<Node> allNodes = new ArrayList<>();
-            Node[] allNode = new Node [3];
+            Node[] allNode = new Node[3];
 
             //Node testnode1 = new Node("A");
             //Node testnode2 = new Node("B");
@@ -31,7 +30,7 @@ class NodeCityTest {
             if (i>0)allNode[i-1].addDestination(allNode[i],i);
         }
 
-        Node []recievedNodes = nodecity.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
+        Node []recievedNodes = shortestPath.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
 
         for (int i = 0; i < recievedNodes.length; i++) {
             System.out.println("recieved nodes: " + recievedNodes[i].name);

@@ -3,132 +3,138 @@ package routeCity;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MainMenu {
+class GuiController {
 
     private View view = new View();
-
-    //private ArrayList<Node> allNodes = new ArrayList<>();
     private boolean gpsPressed = false, firstNodeSaved= false;
-
-    private Node fromNode, destinationNode;
-
+    private Node fromNode;
     private Color green = new Color(46, 171, 77);
     private Color orange = new Color(204, 151, 59);
 
-    public void menu(ArrayList<Node> allNode){
+    void menu(ArrayList<Node> allNode){
         view.setUpFrame();
         addActionListeners(allNode);
+        System.out.println("Welcome to Route City!\nTo check a nodes roads/connected nodes, simply press a node.\nChosen node will turn orange, the connected nodes will turn green and show a number that represents the distance between the nodes.\nTo find the shortest path between two nodes, press the button in the lower left corner and then select two nodes. ");
     }
 
     //Add all needed action listeners at the start of the program.
-    public void addActionListeners(ArrayList<Node> allNodes){
+    private void addActionListeners(ArrayList<Node> allNodes){
 
         view.nodeAButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeAButton.setBackground(orange);
                 gpsActive(allNodes.get(0),allNodes);
             } else {
                 findAdjacentNodes(0,allNodes);
+                view.nodeAButton.setBackground(orange);
             }
-            view.nodeAButton.setBackground(orange);
         });
 
         view.nodeBButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeBButton.setBackground(orange);
                 gpsActive(allNodes.get(1),allNodes);
             } else {
                 findAdjacentNodes(1,allNodes);
+                view.nodeBButton.setBackground(orange);
             }
-            view.nodeBButton.setBackground(orange);
         });
 
         view.nodeCButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeCButton.setBackground(orange);
                 gpsActive(allNodes.get(2),allNodes);
             } else {
                 findAdjacentNodes(2,allNodes);
+                view.nodeCButton.setBackground(orange);
             }
-            view.nodeCButton.setBackground(orange);
         });
 
         view.nodeDButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeDButton.setBackground(orange);
                 gpsActive(allNodes.get(3),allNodes);
             } else {
                 findAdjacentNodes(3,allNodes);
+                view.nodeDButton.setBackground(orange);
             }
-            view.nodeDButton.setBackground(orange);
         });
 
         view.nodeEButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeEButton.setBackground(orange);
                 gpsActive(allNodes.get(4),allNodes);
             } else {
                 findAdjacentNodes(4,allNodes);
+                view.nodeEButton.setBackground(orange);
             }
-            view.nodeEButton.setBackground(orange);
         });
 
         view.nodeFButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeFButton.setBackground(orange);
                 gpsActive(allNodes.get(5),allNodes);
             } else {
                 findAdjacentNodes(5,allNodes);
+                view.nodeFButton.setBackground(orange);
             }
-            view.nodeFButton.setBackground(orange);
         });
 
         view.nodeGButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeGButton.setBackground(orange);
                 gpsActive(allNodes.get(6),allNodes);
             } else {
                 findAdjacentNodes(6,allNodes);
+                view.nodeGButton.setBackground(orange);
             }
-            view.nodeGButton.setBackground(orange);
         });
 
         view.nodeHButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeHButton.setBackground(orange);
                 gpsActive(allNodes.get(7),allNodes);
             } else {
                 findAdjacentNodes(7,allNodes);
+                view.nodeHButton.setBackground(orange);
             }
-            view.nodeHButton.setBackground(orange);
         });
 
         view.nodeIButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeIButton.setBackground(orange);
                 gpsActive(allNodes.get(8),allNodes);
             } else {
                 view.nodeIButton.setBackground(orange);
                 findAdjacentNodes(8,allNodes);
+                view.nodeIButton.setBackground(orange);
             }
-            view.nodeIButton.setBackground(orange);
         });
 
         view.nodeJButton.addActionListener(e->{
             resetViewButtons();
             if (gpsPressed){
+                view.nodeJButton.setBackground(orange);
                 gpsActive(allNodes.get(9),allNodes);
             } else {
                 view.nodeJButton.setBackground(orange);
                 findAdjacentNodes(9,allNodes);
+                view.nodeJButton.setBackground(orange);
             }
-            view.nodeJButton.setBackground(orange);
         });
 
         view.searchShortestPathButton.addActionListener(e->{
             gpsPressed = true;
             resetViewButtons();
-            System.out.println("Chose 2 nodes");
         });
     }
 
@@ -189,7 +195,7 @@ public class MainMenu {
     }
 
     //Get the distance between two nodes
-    int getDistance(int nodeFrom, int nodeTo, ArrayList<Node> allNodes){
+    private int getDistance(int nodeFrom, int nodeTo, ArrayList<Node> allNodes){
         return allNodes.get(nodeFrom).adjacentNodes.get(allNodes.get(nodeTo));
     }
 
@@ -198,22 +204,29 @@ public class MainMenu {
             fromNode = node;
             firstNodeSaved = true;
         }else {
-            destinationNode = node;
 
-            NodeCity nodeCity = new NodeCity();
-            Node[] test = nodeCity.getShortestPath(allNodes,fromNode,destinationNode);
-            StringBuilder way = new StringBuilder();
+            ShortestPath nodeCity = new ShortestPath();
+            StringBuilder nodeNames = new StringBuilder();
+            int totalDistance = 0;
+            Node[] shortestPath = nodeCity.getShortestPath(allNodes,fromNode, node);
 
-            for (Node value : test) {
-                System.out.println(value.name);
-                way.append(value.name).append(" ");
+            for (int i = 0; i < shortestPath.length; i++) {
+                if (i == shortestPath.length-1){
+                    nodeNames.append(shortestPath[i].name);
+                }else {
+                    nodeNames.append(shortestPath[i].name).append(" (").append(shortestPath[i].adjacentNodes.get(shortestPath[i + 1])).append(") ");
+                    totalDistance += shortestPath[i].adjacentNodes.get(shortestPath[i+1]);
+                }
             }
-            System.out.println("Shortest path from "+fromNode.name+" to "+destinationNode.name+":");
-            System.out.println(way);
-            view.shortestPath.setText(String.valueOf(way));
+            view.shortestLabel.setText("Shortest path from "+fromNode.name+" to "+ node.name+":");
+            view.shortestPath.setText(String.valueOf(nodeNames));
+            view.totalDistanceLabel.setText("Total distance: "+totalDistance);
             view.shortestPath.setVisible(true);
+            view.totalDistanceLabel.setVisible(true);
+            view.shortestLabel.setVisible(true);
             firstNodeSaved = false;
             gpsPressed = false;
+            resetViewButtons();
         }
     }
 

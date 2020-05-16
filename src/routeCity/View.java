@@ -9,7 +9,9 @@ public class View {
     JPanel panel = new JPanel();
     JLabel pathCity;
     JButton searchShortestPathButton,nodeAButton,nodeBButton,nodeCButton,nodeDButton,nodeEButton,nodeFButton,nodeGButton,nodeHButton,nodeIButton,nodeJButton;
-    JLabel shortestPath = new JLabel("                   ");
+    JLabel shortestLabel = new JLabel("Shortest path between * and *:");
+    JLabel shortestPath = new JLabel("                                                  ");
+    JLabel totalDistanceLabel = new JLabel("Total distance:     ");
 
     public void setUpFrame(){
 
@@ -19,14 +21,12 @@ public class View {
         panel.setBounds(0,0,650,650);
         panel.setLayout(null);
 
-        createButtons();
-        shortestPath.setForeground(Color.black);
-        Dimension size = shortestPath.getPreferredSize();
-        shortestPath.setBounds(400, 530, size.width, size.height);
-        //shortestPath.setVisible(false);
+        createButtonsAndLabels();
 
         frame.add(panel);
         panel.add(shortestPath);
+        panel.add(totalDistanceLabel);
+        panel.add(shortestLabel);
         panel.add(nodeAButton);
         panel.add(nodeBButton);
         panel.add(nodeCButton);
@@ -44,13 +44,27 @@ public class View {
         frame.setVisible(true);
     }
 
-    private void createButtons(){
+    private void createButtonsAndLabels(){
+
+        shortestPath.setForeground(Color.black);
+        Dimension size = shortestPath.getPreferredSize();
+        shortestPath.setBounds(370, 530, size.width+100, size.height);
+
+        shortestLabel.setForeground(Color.black);
+        Dimension size2 = shortestLabel.getPreferredSize();
+        shortestLabel.setBounds(370, 500, size2.width+100, size2.height);
+        shortestLabel.setVisible(false);
 
         pathCity = new JLabel("Path City");
         pathCity.setForeground(Color.black);
         pathCity.setFont(new Font("serif", Font.PLAIN,30));
-        Dimension size = pathCity.getPreferredSize();
-        pathCity.setBounds(270, 5, size.width, size.height);
+        Dimension size3 = pathCity.getPreferredSize();
+        pathCity.setBounds(270, 5, size3.width+100, size3.height);
+
+        totalDistanceLabel.setForeground(Color.black);
+        Dimension size4 = totalDistanceLabel.getPreferredSize();
+        totalDistanceLabel.setBounds(370, 560, size4.width+100, size4.height);
+        totalDistanceLabel.setVisible(false);
 
         nodeAButton = new JButton("Node A");
         nodeAButton.setSize(100, 100);
