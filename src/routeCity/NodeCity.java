@@ -8,7 +8,7 @@ public class NodeCity {
             ArrayList<Node> possibleRoutes = new ArrayList();
             ArrayList<Node[]> foundRoutes = new ArrayList<>();
 
-            return shortestPath(allNodes,GPS(start,allNodes,foundRoutes,possibleRoutes, goal),goal);
+            return shortestPath(GPS(start,allNodes,foundRoutes,possibleRoutes, goal),goal);
         }
 
         private ArrayList<Node[]> GPS(Node node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
@@ -31,10 +31,11 @@ public class NodeCity {
                 if (node.adjacentNodes.containsKey(allNodes.get(i))){
                     possibleRoutes.add(node);
                     if (node.adjacentNodes.containsKey(goal)){
-                        foundRoutes.add(new Node[possibleRoutes.size()]);
+                        foundRoutes.add(new Node[possibleRoutes.size()+1]);
                         for (int j = 0; j < possibleRoutes.size(); j++) {
                             foundRoutes.get(foundRoutes.size()-1)[j] = possibleRoutes.get(j);
                         }
+                        foundRoutes.get(foundRoutes.size()-1)[foundRoutes.get(foundRoutes.size()-1).length-1] = goal;
                     }
                     else{
                         GPS(allNodes.get(i), allNodes,foundRoutes,possibleRoutes, goal);
@@ -45,12 +46,10 @@ public class NodeCity {
             return foundRoutes;
         }
 
-        private Node[] shortestPath(ArrayList<Node> allNodes,ArrayList<Node[]> foundRoutes, Node goal){
-
-            int distance = 1000;
+        private Node[] shortestPath(ArrayList<Node[]> foundRoutes, Node goal){
+            int distance = 101;
             int currentMeasure = 0;
             Node[] returnArr = new Node[0];
-
             for (int i = 0; i < foundRoutes.size(); i++) {
 
                 for (int j = 0; j < foundRoutes.get(i).length-1; j++) {

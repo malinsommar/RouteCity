@@ -15,6 +15,7 @@ class NodeCityTest {
     void getShortestPath() {
             NodeCity nodecity = new NodeCity();
             ArrayList<Node> allNodes = new ArrayList<>();
+            Node[] allNode = new Node [3];
 
             //Node testnode1 = new Node("A");
             //Node testnode2 = new Node("B");
@@ -23,12 +24,25 @@ class NodeCityTest {
             //testnode2.addDestination(testnode3,2);
 
         for (int i = 0; i < 3; i++) {
-            System.out.println((char)(65+i));
             allNodes.add(new Node(Character.toString((char)(65+i))));
             if (i>0)allNodes.get(i-1).addDestination(allNodes.get(i),i);
+
+            allNode[i] = new Node(Character.toString((char)(65+i)));
+            if (i>0)allNode[i-1].addDestination(allNode[i],i);
         }
 
-        nodecity.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
-        assertEquals(nodecity.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2)), allNodes);
+        Node []recievedNodes = nodecity.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
+
+        for (int i = 0; i < recievedNodes.length; i++) {
+            System.out.println("recieved nodes: " + recievedNodes[i].name);
+            System.out.println("basic nodes: " +allNode[i].name);
+        };
+
+        System.out.println(recievedNodes.length);
+        System.out.println(allNode.length);
+
+        for (int i = 0; i < recievedNodes.length; i++) {
+            assertEquals(recievedNodes[i].name, allNode[i].name);
+        }
     }
 }
