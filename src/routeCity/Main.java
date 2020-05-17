@@ -13,3 +13,4 @@ public class Main {
 //TODO Skriv integration test
 //TODO Skriv system test
 //TODO Acceptence test
+//TODO Optimera
