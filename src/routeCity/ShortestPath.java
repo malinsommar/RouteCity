@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 public class ShortestPath {
 
+    /**
+     *
+     * @param allNodes all nodes and their saved data
+     * @param start the starting/current node the program is looking at
+     * @param goal the node the program is looking for a way to
+     * @return returns the shortest path from the first
+     */
         public Node[] getShortestPath(ArrayList<Node> allNodes,Node start, Node goal){
             ArrayList<Node> possibleRoutes = new ArrayList();
             ArrayList<Node[]> foundRoutes = new ArrayList<>();
@@ -11,6 +18,15 @@ public class ShortestPath {
             return shortestPath(GPS(start,allNodes,foundRoutes,possibleRoutes, goal),goal);
         }
 
+    /**
+     *
+     * @param node the starting/current node the program is looking at
+     * @param allNodes all nodes and their saved data
+     * @param foundRoutes an arraylist of arrays that saves all path that lead from start to goal
+     * @param possibleRoutes an arraylist of nodes to prevent it from going in circles and finds arrays to add to foundarrays
+     * @param goal the node the method is looking for a path to
+     * @return see foundroutes
+     */
         private ArrayList<Node[]> GPS(Node node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
 
             boolean willBreak = false;
@@ -46,6 +62,12 @@ public class ShortestPath {
             return foundRoutes;
         }
 
+    /**
+     *
+     * @param foundRoutes an arraylist of arrays with all paths that lead from start to goal
+     * @param goal the node at the end of every array
+     * @return
+     */
         private Node[] shortestPath(ArrayList<Node[]> foundRoutes, Node goal){
             int distance = 101;
             int currentMeasure = 0;
@@ -64,8 +86,7 @@ public class ShortestPath {
                     }
                 }
                 }
-            if (distance == 1000) System.out.println(" no route found");
-            else System.out.println("the shortest path is " + distance);
+            if (distance == 101) System.out.println(" no route found");
             return returnArr;
         }
     }
