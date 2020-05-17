@@ -18,11 +18,11 @@ public class Node {
         return minRoads;
     }
 
-    public void setMinRoads(boolean minRoads) {
+    void setMinRoads(boolean minRoads) {
         this.minRoads = minRoads;
     }
 
-    public boolean isMaxRoads() {
+    boolean isMaxRoads() {
         return maxRoads;
     }
 
