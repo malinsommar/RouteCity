@@ -19,35 +19,19 @@ class InitializeCityTest {
         }
     }
 
-   /* @org.junit.jupiter.api.Test
-    void replaceRoad() {
-        InitializeCity initializeCity = new InitializeCity();
-        Node node1 = new Node("1");
-        Node node2 = new Node("2");
-        Node node3 = new Node("3");
-
-        node1.adjacentNodes.put(node2,5);
-        node1.adjacentNodes.put(node2,5);
-        node1.adjacentNodes.put(node2,5);
-
-        ArrayList<Node> nodes = new ArrayList<>();
-        nodes.add(node1);
-        nodes.add(node2);
-        nodes.add(node3);
-
-        initializeCity.replaceRoad(nodes);
-
-        assertEquals(2,node1.adjacentNodes.size());
-        assertEquals(2,node2.adjacentNodes.size());
-        assertEquals(1,node3.adjacentNodes.size());
-    }*/
-
     @org.junit.jupiter.api.Test
     void checkIfConnected() {
         InitializeCity initializeCity = new InitializeCity();
         ArrayList<Node> allNodes = new ArrayList<>();
-        allNodes.addAll(initializeCity.addNodesToArray(allNodes));
-        initializeCity.createAllRoads(allNodes);
+        Node node1 = new Node("A");
+        Node node2 = new Node("B");
+        Node node3 = new Node("C");
+        allNodes.add(node1);
+        allNodes.add(node2);
+        allNodes.add(node3);
+        initializeCity.addRoad(node1, node2);
+        initializeCity.addRoad(node2, node3);
+        initializeCity.addRoad(node3, node1);
 
         assertTrue(initializeCity.checkIfConnected(0,allNodes),"Not connected");
     }

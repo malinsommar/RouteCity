@@ -77,7 +77,7 @@ public class InitializeCity {
                 }
             }
         }
-        return nodesTrue == 10;
+        return nodesTrue == allNodes.size();
     }
 
     /**
