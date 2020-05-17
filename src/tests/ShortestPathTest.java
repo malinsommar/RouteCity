@@ -10,6 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShortestPathTest {
 
+    /**
+     * getShortestPath tests the Shortest path class with an array of 3
+     * getShortestPathTwoTest tests the Shortest path class with an array of 2
+     */
+
     @Test
     void getShortestPath() {
             ShortestPath shortestPath = new ShortestPath();

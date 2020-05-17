@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ShortestPath {
 
     /**
-     * 
+     *
      * @param allNodes all nodes and their saved data
      * @param start the starting/current node the program is looking at
      * @param goal the node the program is looking for a way to
@@ -36,7 +36,6 @@ public class ShortestPath {
 
             boolean willBreak = false;
 
-            //find way from A to J
             for (int i = 0; i < allNodes.size(); i++) {
 
                 for (Node possibleRoute : possibleRoutes) {

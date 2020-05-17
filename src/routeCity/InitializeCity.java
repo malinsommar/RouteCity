@@ -61,10 +61,10 @@ public class InitializeCity {
     }
 
     /**
-     *
-     * @param follow
-     * @param allNodes
-     * @return
+     * this method selects a node and checks all adjacent nodes of that, and the adjacent nodes of those
+     * @param follow the number of the node it's currently checking
+     * @param allNodes All nodes and their saved data.
+     * @return returns true/false based on if it looped through all nodes or only some
      */
     public boolean checkIfConnected(int follow, ArrayList<Node> allNodes){
 
