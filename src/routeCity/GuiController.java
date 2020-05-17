@@ -11,13 +11,20 @@ class GuiController {
     private Color green = new Color(46, 171, 77);
     private Color orange = new Color(204, 151, 59);
 
+    /**
+     * This method uses needed method to set up the GUI.
+     * @param allNode All nodes and their saved data.
+     */
     void menu(ArrayList<Node> allNode){
         view.setUpFrame();
         addActionListeners(allNode);
-        System.out.println("Welcome to Route City!\nTo check a nodes roads/connected nodes, simply press a node.\nChosen node will turn orange, the connected nodes will turn green and show a number that represents the distance between the nodes.\nTo find the shortest path between two nodes, press the button in the lower left corner and then select two nodes. ");
+        System.out.println("Welcome to Route City!\nTo check a nodes connections, simply press a node.\nChosen node will turn orange, the connected nodes will turn green and show a number that represents the distance between the nodes.\nTo find the shortest path between two nodes, press the button in the lower left corner and then select two nodes. ");
     }
 
-    //Add all needed action listeners at the start of the program.
+    /**
+     * Adds all needed action listeners at the start of the program.
+     * @param allNodes All nodes and their saved data.
+     */
     private void addActionListeners(ArrayList<Node> allNodes){
 
         view.nodeAButton.addActionListener(e->{
@@ -138,17 +145,26 @@ class GuiController {
         });
     }
 
-    //Checks which nodes the selected node is connected with.
+    /**
+     * Sends all of the connected nodes to changeButton().
+     * @param node The node to search for connected nodes.
+     * @param allNodes All nodes and their saved data.
+     */
     private void findAdjacentNodes(int node, ArrayList<Node> allNodes){
         for (Node allNode : allNodes) {
             if (allNodes.get(node).adjacentNodes.containsKey(allNode)) {
-                String test = allNode.name;
+                String test = allNode.getName();
                 changeButton(test,node,allNodes);
             }
         }
     }
 
-    //Changes the color and text on the buttons when pressed.
+    /**
+     * Changes the color and distance text on the buttons. Which button depends on the fromNode.
+     * @param name Name of the node.
+     * @param fromNode The selected node.
+     * @param allNodes All nodes and their saved data.
+     */
     private void changeButton(String name, int fromNode, ArrayList<Node> allNodes){
         switch (name) {
             case "A":
@@ -194,11 +210,23 @@ class GuiController {
         }
     }
 
-    //Get the distance between two nodes
+    /**
+     * Get the distance between the first and second node.
+     * @param nodeFrom First node.
+     * @param nodeTo Second node.
+     * @param allNodes All nodes and their saved data.
+     * @return The distance between the first and second node.
+     */
     private int getDistance(int nodeFrom, int nodeTo, ArrayList<Node> allNodes){
         return allNodes.get(nodeFrom).adjacentNodes.get(allNodes.get(nodeTo));
     }
 
+    /**
+     * Updates the gui when shortest path is pressed. First time the method is used it updates the global fromNode with node.
+     * The next time it uses the ShortestPath class to get and print out the shortest path between the chosen nodes.
+     * @param node The chosen node.
+     * @param allNodes All nodes and their saved data.
+     */
     private void gpsActive(Node node, ArrayList<Node> allNodes){
         if (!firstNodeSaved){
             fromNode = node;
@@ -212,13 +240,13 @@ class GuiController {
 
             for (int i = 0; i < shortestPath.length; i++) {
                 if (i == shortestPath.length-1){
-                    nodeNames.append(shortestPath[i].name);
+                    nodeNames.append(shortestPath[i].getName());
                 }else {
-                    nodeNames.append(shortestPath[i].name).append(" (").append(shortestPath[i].adjacentNodes.get(shortestPath[i + 1])).append(") ");
+                    nodeNames.append(shortestPath[i].getName()).append(" (").append(shortestPath[i].adjacentNodes.get(shortestPath[i + 1])).append(") ");
                     totalDistance += shortestPath[i].adjacentNodes.get(shortestPath[i+1]);
                 }
             }
-            view.shortestLabel.setText("Shortest path from "+fromNode.name+" to "+ node.name+":");
+            view.shortestLabel.setText("Shortest path from "+fromNode.getName()+" to "+ node.getName()+":");
             view.shortestPath.setText(String.valueOf(nodeNames));
             view.totalDistanceLabel.setText("Total distance: "+totalDistance);
             view.shortestPath.setVisible(true);
@@ -230,7 +258,9 @@ class GuiController {
         }
     }
 
-    //Reset view to original look.
+    /**
+     * Reset panel to original look.
+     */
     private void resetViewButtons(){
         view.nodeAButton.setBackground(Color.white);
         view.nodeAButton.setText("Node A");

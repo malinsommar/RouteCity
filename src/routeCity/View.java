@@ -3,17 +3,20 @@ package routeCity;
 import javax.swing.*;
 import java.awt.*;
 
-public class View {
+class View {
 
-    JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
-    JLabel pathCity;
+    private JFrame frame = new JFrame();
+    private JPanel panel = new JPanel();
+    private JLabel pathCity;
     JButton searchShortestPathButton,nodeAButton,nodeBButton,nodeCButton,nodeDButton,nodeEButton,nodeFButton,nodeGButton,nodeHButton,nodeIButton,nodeJButton;
     JLabel shortestLabel = new JLabel("Shortest path between * and *:");
     JLabel shortestPath = new JLabel("                                                  ");
     JLabel totalDistanceLabel = new JLabel("Total distance:     ");
 
-    public void setUpFrame(){
+    /**
+     * Creates the JFrame and JPanel.
+     */
+    void setUpFrame(){
 
         frame.setBounds(350,30,650,650);
         frame.setLayout(null);
@@ -44,6 +47,9 @@ public class View {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates the buttons and Labels needed for the panel.
+     */
     private void createButtonsAndLabels(){
 
         shortestPath.setForeground(Color.black);

@@ -1,4 +1,4 @@
-package Test;
+package tests;
 
 import routeCity.InitializeCity;
 import routeCity.Node;
@@ -15,7 +15,7 @@ class InitializeCityTest {
         initializeCity.createAllRoads(allNodes);
 
         for (Node allNode : allNodes) {
-            assertTrue(allNode.minRoads, "Not enough roads");
+            assertTrue(allNode.isMinRoads(), "Not enough roads");
         }
     }
 
@@ -62,7 +62,7 @@ class InitializeCityTest {
         Node node3 = new Node("3");
         Node node4 = new Node("4");
 
-        node3.maxRoads = true;
+        node3.setMaxRoads(true);
         initializeCity.addRoad(node1,node4);
 
         assertFalse(initializeCity.addRoad(node1,node4));
@@ -78,15 +78,7 @@ class InitializeCityTest {
 
         testNode.adjacentNodes.put(testNode,3);
         initializeCity.countRoadsSetStatus(testNode);
-        assertFalse(testNode.minRoads);
-
-       /* testNode.adjacentNodes.put(testNode,4);
-        initializeCity.countRoadsSetStatus(testNode);
-        assertTrue(testNode.minRoads);
-
-        testNode.adjacentNodes.put(testNode,3);
-        initializeCity.countRoadsSetStatus(testNode);
-        assertTrue(testNode.maxRoads);*/
+        assertFalse(testNode.isMinRoads());
     }
 
     @org.junit.jupiter.api.Test
