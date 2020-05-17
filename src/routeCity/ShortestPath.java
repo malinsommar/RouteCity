@@ -32,7 +32,7 @@ public class ShortestPath {
      * @param goal the node the method is looking for a path to
      * @return see foundroutes
      */
-        private ArrayList<Node[]> GPS(Node node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
+        public ArrayList<Node[]> GPS(Node node, ArrayList<Node> allNodes, ArrayList<Node[]> foundRoutes, ArrayList<Node> possibleRoutes, Node goal){
 
             boolean willBreak = false;
 
@@ -72,24 +72,22 @@ public class ShortestPath {
      * @param goal the node at the end of every array
      * @return the array from foundroutes that was the shortest
      */
-        private Node[] shortestPath(ArrayList<Node[]> foundRoutes, Node goal){
+        public Node[] shortestPath(ArrayList<Node[]> foundRoutes, Node goal){
             int distance = 101;
             int currentMeasure = 0;
             Node[] returnArr = new Node[0];
-            for (int i = 0; i < foundRoutes.size(); i++) {
-
-                for (int j = 0; j < foundRoutes.get(i).length-1; j++) {
-                    currentMeasure += foundRoutes.get(i)[j].adjacentNodes.get(foundRoutes.get(i)[j+1]);
-
-                    if (foundRoutes.get(i)[j+1].adjacentNodes.containsKey(goal)){
+            for (Node[] foundRoute : foundRoutes) {
+                for (int j = 0; j < foundRoute.length - 1; j++) {
+                    currentMeasure += foundRoute[j].adjacentNodes.get(foundRoute[j + 1]);
+                    if (foundRoute[j + 1].adjacentNodes.containsKey(goal)) {
                         if (currentMeasure < distance) {
                             distance = currentMeasure;
-                            returnArr = foundRoutes.get(i);
+                            returnArr = foundRoute;
                         }
                         currentMeasure = 0;
                     }
                 }
-                }
+            }
             if (distance == 101) System.out.println(" no route found");
             return returnArr;
         }
