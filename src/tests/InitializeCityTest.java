@@ -1,4 +1,4 @@
-package Test;
+package tests;
 
 import routeCity.InitializeCity;
 import routeCity.Node;
@@ -79,14 +79,6 @@ class InitializeCityTest {
         testNode.adjacentNodes.put(testNode,3);
         initializeCity.countRoadsSetStatus(testNode);
         assertFalse(testNode.isMinRoads());
-
-       /* testNode.adjacentNodes.put(testNode,4);
-        initializeCity.countRoadsSetStatus(testNode);
-        assertTrue(testNode.minRoads);
-
-        testNode.adjacentNodes.put(testNode,3);
-        initializeCity.countRoadsSetStatus(testNode);
-        assertTrue(testNode.maxRoads);*/
     }
 
     @org.junit.jupiter.api.Test

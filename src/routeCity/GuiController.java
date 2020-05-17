@@ -259,7 +259,7 @@ class GuiController {
     }
 
     /**
-     * Reset view to original look.
+     * Reset panel to original look.
      */
     private void resetViewButtons(){
         view.nodeAButton.setBackground(Color.white);

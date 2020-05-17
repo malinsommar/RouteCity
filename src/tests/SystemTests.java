@@ -1,12 +1,10 @@
-package Test;
+package tests;
 
 import org.junit.jupiter.api.Test;
 import routeCity.InitializeCity;
 import routeCity.Node;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SystemTests {
 
