@@ -27,7 +27,7 @@ class ShortestPathTest {
         Node []recievedNodes = shortestPath.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
 
         for (int i = 0; i < recievedNodes.length; i++) {
-            assertEquals(recievedNodes[i].name, allNode[i].name);
+            assertEquals(recievedNodes[i].getName(), allNode[i].getName());
         }
     }
 }

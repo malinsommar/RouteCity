@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Node {
 
-    private String name;
-    private boolean minRoads = false;
-    private boolean maxRoads = false;
+    String name;
+    boolean minRoads = false;
+    boolean maxRoads = false;
     public Map<Node, Integer> adjacentNodes = new HashMap<>();
 
     public String getName() {
