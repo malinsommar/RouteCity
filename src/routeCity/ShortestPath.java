@@ -5,13 +5,18 @@ import java.util.ArrayList;
 public class ShortestPath {
 
     /**
-     *
+     * 
      * @param allNodes all nodes and their saved data
      * @param start the starting/current node the program is looking at
      * @param goal the node the program is looking for a way to
-     * @return returns the shortest path from the first
+     * @return returns the shortest path from the start to the goal
      */
         public Node[] getShortestPath(ArrayList<Node> allNodes,Node start, Node goal){
+
+            if (start.adjacentNodes.containsKey(goal)){
+                return new Node[]{start,goal};
+            }
+
             ArrayList<Node> possibleRoutes = new ArrayList();
             ArrayList<Node[]> foundRoutes = new ArrayList<>();
 
@@ -63,10 +68,10 @@ public class ShortestPath {
         }
 
     /**
-     *
+     * find the shortest path from start to goal from the arraylist sent in
      * @param foundRoutes an arraylist of arrays with all paths that lead from start to goal
      * @param goal the node at the end of every array
-     * @return
+     * @return the array from foundroutes that was the shortest
      */
         private Node[] shortestPath(ArrayList<Node[]> foundRoutes, Node goal){
             int distance = 101;
