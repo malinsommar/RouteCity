@@ -153,7 +153,7 @@ class GuiController {
     private void findAdjacentNodes(int node, ArrayList<Node> allNodes){
         for (Node allNode : allNodes) {
             if (allNodes.get(node).adjacentNodes.containsKey(allNode)) {
-                String test = allNode.name;
+                String test = allNode.getName();
                 changeButton(test,node,allNodes);
             }
         }
@@ -240,13 +240,13 @@ class GuiController {
 
             for (int i = 0; i < shortestPath.length; i++) {
                 if (i == shortestPath.length-1){
-                    nodeNames.append(shortestPath[i].name);
+                    nodeNames.append(shortestPath[i].getName());
                 }else {
-                    nodeNames.append(shortestPath[i].name).append(" (").append(shortestPath[i].adjacentNodes.get(shortestPath[i + 1])).append(") ");
+                    nodeNames.append(shortestPath[i].getName()).append(" (").append(shortestPath[i].adjacentNodes.get(shortestPath[i + 1])).append(") ");
                     totalDistance += shortestPath[i].adjacentNodes.get(shortestPath[i+1]);
                 }
             }
-            view.shortestLabel.setText("Shortest path from "+fromNode.name+" to "+ node.name+":");
+            view.shortestLabel.setText("Shortest path from "+fromNode.getName()+" to "+ node.getName()+":");
             view.shortestPath.setText(String.valueOf(nodeNames));
             view.totalDistanceLabel.setText("Total distance: "+totalDistance);
             view.shortestPath.setVisible(true);

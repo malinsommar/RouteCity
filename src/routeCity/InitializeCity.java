@@ -13,7 +13,7 @@ public class InitializeCity {
      * Uses all methods needed to create the allNodes Arraylist which is needed throughout the entire program.
      * The method loops if the nodes don't connect correctly and retries to create the Arraylist.
      */
-     void initializeNodes(){
+    void initializeNodes(){
          ArrayList<Node> allNodes = new ArrayList<>();
 
          while (true) {
@@ -24,8 +24,8 @@ public class InitializeCity {
                  setLoopedNodes();
                  for (Node allNode : allNodes) {
                      allNode.adjacentNodes.clear();
-                     allNode.maxRoads = false;
-                     allNode.minRoads = false;
+                     allNode.setMaxRoads(false);
+                     allNode.setMinRoads(false);
                  }
                  allNodes.clear();
              }
@@ -84,19 +84,10 @@ public class InitializeCity {
      * Checks if a road already exists within allNodes or if the road is impossible to make if not add the new road.
      * @param from From the node the road will start.
      * @param destination To the node the road will lead.
-     * @return If the road can be added or not.
+     * @return If the road can be added or not. This is now only used for test reasons.
      */
     public boolean addRoad(Node from, Node destination){
-        if (from.adjacentNodes.containsKey(destination)){
-            //System.out.println("Road already exists");
-            return false;
-        }
-        else if (from.name.equals(destination.name)){
-            // System.out.println("Cant create road between the same node.");
-            return false;
-        }
-        else if (from.maxRoads || destination.maxRoads){
-            // System.out.println("One of the nodes already has 3 connected roads.");
+        if (from.adjacentNodes.containsKey(destination)||from.getName().equals(destination.getName())||from.isMaxRoads() || destination.isMaxRoads()){
             return false;
         } else {
             int distance = (int)(Math.random()*10)+1;
@@ -114,14 +105,15 @@ public class InitializeCity {
      */
     public void countRoadsSetStatus(Node node){
         if (node.adjacentNodes.size() < 2){
-            node.minRoads = false;
-            node.maxRoads = false;
+            node.setMinRoads(false);
+            node.setMaxRoads(false);
         }
         if (node.adjacentNodes.size() > 1){
-            node.minRoads = true;
+            node.setMinRoads(true);
+            node.setMaxRoads(false);
         }
         if (node.adjacentNodes.size()>2){
-            node.maxRoads = true;
+            node.setMaxRoads(true);
         }
     }
 

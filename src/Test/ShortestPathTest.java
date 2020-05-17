@@ -33,15 +33,15 @@ class ShortestPathTest {
         Node []recievedNodes = shortestPath.getShortestPath(allNodes, allNodes.get(0), allNodes.get(2));
 
         for (int i = 0; i < recievedNodes.length; i++) {
-            System.out.println("recieved nodes: " + recievedNodes[i].name);
-            System.out.println("basic nodes: " +allNode[i].name);
+            System.out.println("recieved nodes: " + recievedNodes[i].getName());
+            System.out.println("basic nodes: " +allNode[i].getName());
         };
 
         System.out.println(recievedNodes.length);
         System.out.println(allNode.length);
 
         for (int i = 0; i < recievedNodes.length; i++) {
-            assertEquals(recievedNodes[i].name, allNode[i].name);
+            assertEquals(recievedNodes[i].getName(), allNode[i].getName());
         }
     }
 }

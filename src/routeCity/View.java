@@ -13,6 +13,9 @@ public class View {
     JLabel shortestPath = new JLabel("                                                  ");
     JLabel totalDistanceLabel = new JLabel("Total distance:     ");
 
+    /**
+     * Creates the JFrame and JPanel.
+     */
     public void setUpFrame(){
 
         frame.setBounds(350,30,650,650);
@@ -44,6 +47,9 @@ public class View {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates the buttons and Labels needed for the panel.
+     */
     private void createButtonsAndLabels(){
 
         shortestPath.setForeground(Color.black);
